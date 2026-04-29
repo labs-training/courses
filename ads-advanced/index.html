@@ -1,1 +1,635 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Google Ads Advanced Masterclass</title>
+<style>
+  :root {
+    --bg: #f0f0f0;
+    --text: #222222;
+    --blue: #6b8eac;
+    --sienna: #b37d6b;
+    --white: #ffffff;
+  }
+  body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--bg); color: var(--text); overflow: hidden; }
+  .prog-container { position: fixed; top: 0; left: 0; width: 100%; height: 8px; background: #e0e0e0; z-index: 1000; }
+  .prog-bar { height: 100%; background: var(--blue); width: 0%; transition: width 0.3s ease; }
+  .s { display: none; height: 100vh; width: 100vw; padding: 60px 80px 100px 80px; box-sizing: border-box; flex-direction: column; justify-content: center; overflow-y: auto; }
+  .s.active { display: flex; animation: fade 0.4s; }
+  @keyframes fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  .t { font-size: 2.2rem; color: var(--blue); margin-bottom: 20px; border-bottom: 2px solid var(--sienna); padding-bottom: 10px; }
+  .p { font-size: 1.1rem; line-height: 1.6; margin-bottom: 20px; }
+  .l { background: var(--white); border-left: 6px solid var(--sienna); padding: 15px 20px; margin: 20px 0; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+  .l strong { color: var(--sienna); font-size: 1.1rem; }
+  .i { display: inline-block; background: #e8e8e8; padding: 10px 20px; border-radius: 5px; color: var(--blue); font-style: italic; margin-bottom: 20px; font-weight: bold; border: 1px dashed var(--blue); }
+  .nav { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--white); display: flex; justify-content: space-between; align-items: center; padding: 15px 40px; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); box-sizing: border-box; z-index: 1000;}
+  .btn { background: var(--blue); color: var(--white); border: none; padding: 10px 25px; font-size: 1.1rem; cursor: pointer; border-radius: 5px; transition: 0.2s; }
+  .btn:hover { background: #557692; }
+  .btn:disabled { background: #cccccc; cursor: not-allowed; }
+  .counter { font-weight: bold; font-size: 1.2rem; color: var(--blue); }
+</style>
+</head>
+<body>
 
+<div class="prog-container"><div id="prog" class="prog-bar"></div></div>
+
+<div class="s active">
+  <div class="t">1. Benvenuti alla Masterclass Avanzata di Google Ads</div>
+  <div class="p">Benvenuti. Sono un Senior Google Ads Certified Professional. Questo corso è progettato per portarvi da una conoscenza di base a una padronanza di livello Enterprise della piattaforma pubblicitaria di Google. Non tratteremo le basi elementari, ma ci concentreremo su architetture complesse, algoritmi di offerta, e tracciamento avanzato.</div>
+  <div class="p">L'obiettivo è fornirvi competenze tecniche operative immediatamente applicabili in contesti aziendali ad alto budget.</div>
+  <div class="i"></div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Aprite il vostro browser e preparatevi ad accedere a ads.google.com. Assicuratevi di avere a disposizione un account Google non collegato a campagne attive aziendali per evitare modifiche accidentali.</div>
+</div>
+
+<div class="s">
+  <div class="t">2. Creazione dell'Account Sandbox</div>
+  <div class="p">Google Ads, a differenza di Google Analytics 4, non fornisce un account demo pubblico popolato con dati reali. L'unico modo per esplorare l'interfaccia senza rischiare budget è creare un account "Sandbox" personale in modalità Esperto.</div>
+  <div class="p">Questo account ci permetterà di navigare tra tutte le impostazioni, creare campagne in bozza, esplorare gli script e le conversioni senza mai spendere un centesimo.</div>
+  <div class="i"></div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Vai su ads.google.com > Clicca "Inizia ora" > Effettua il login con un account Google. Quando ti viene chiesto l'obiettivo pubblicitario, fermati e non selezionare le opzioni semplificate.</div>
+</div>
+
+<div class="s">
+  <div class="t">3. Passaggio alla Modalità Esperto</div>
+  <div class="p">Google spinge i nuovi inserzionisti verso le "Campagne Smart" (modalità semplificata). Per i nostri scopi, dobbiamo eludere questo percorso e attivare la "Modalità Esperto" (Expert Mode), che sblocca l'accesso a tutte le configurazioni tecniche, i tipi di corrispondenza e le opzioni di bidding avanzate.</div>
+  <div class="p">Senza questa modalità, sareste limitati a un cruscotto estremamente basilare, inutile per un professionista IT o un marketer di livello senior.</div>
+  <div class="i"></div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Nella primissima schermata di setup, individua e clicca sul piccolo link in basso: "Passa alla modalità Esperto" (Switch to Expert Mode). Se non appare, seleziona "Crea un account senza una campagna".</div>
+</div>
+
+<div class="s">
+  <div class="t">4. Escludere la Fatturazione (Billing)</div>
+  <div class="p">L'ultimo passo per avere la nostra Sandbox pronta è saltare l'inserimento della carta di credito. Un account senza dati di fatturazione (Billing) non potrà mai erogare annunci, anche se per errore attivate una campagna. Questo è il nostro salvavita.</div>
+  <div class="p">Tutte le funzioni di pianificazione e configurazione saranno attive, eccetto la reale erogazione sul Network.</div>
+  <div class="i"></div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Nella schermata di fatturazione, se obbligati, inserite dati fittizi oppure, molto meglio, cliccate su "Esplora il tuo account" senza inserire alcun metodo di pagamento. L'account mostrerà un banner rosso di avviso fatturazione: è esattamente ciò che vogliamo.</div>
+</div>
+
+<div class="s">
+  <div class="t">5. Evoluzione dell'Architettura: Addio SKAGs</div>
+  <div class="p">Per anni, la struttura dominante è stata la SKAG (Single Keyword Ad Group - Gruppo di Annunci a Singola Parola Chiave). Questo modello prevedeva un livello di granularità estremo, con una sola keyword per gruppo, per massimizzare la pertinenza.</div>
+  <div class="p">Oggi, con l'avvento del Machine Learning, le SKAGs limitano le performance. Disperdono i dati su troppi gruppi, impedendo agli algoritmi di apprendere velocemente. Il futuro richiede consolidamento.</div>
+  <div class="i">[Image comparing fragmented SKAG architecture to consolidated architecture]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Menu a sinistra > Campagne > Gruppi di annunci. Se nel vostro storico aziendale vedete centinaia di gruppi con 1 sola keyword, state limitando l'algoritmo di Google.</div>
+</div>
+
+<div class="s">
+  <div class="t">6. La Struttura Hagakure</div>
+  <div class="p">La struttura Hagakure è la risposta moderna alle SKAG. Nasce per sfruttare appieno lo Smart Bidding. Consiste nel consolidare i gruppi di annunci basandosi sulle URL di destinazione (Landing Pages) piuttosto che sulle singole parole chiave.</div>
+  <div class="p">Meno campagne, meno gruppi di annunci, ma molto più densi di dati. Questo permette all'algoritmo di uscire rapidamente dalla fase di apprendimento (Learning Phase).</div>
+  <div class="i">[Image illustrating the Hagakure URL-based grouping structure]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Campagne > Nuova Campagna. Provate a strutturare mentalmente la campagna inserendo nel Gruppo 1 tutte le keyword che puntano alla "Categoria Scarpe", indipendentemente dal volume di ricerca.</div>
+</div>
+
+<div class="s">
+  <div class="t">7. Hagakure: Consolidamento dei Volumi</div>
+  <div class="p">Perché Hagakure funzioni, ogni campagna dovrebbe generare idealmente almeno 3.000 impressioni settimanali o circa 50 conversioni mensili. Questo è il carburante necessario per l'algoritmo.</div>
+  <div class="p">Raggruppare keyword a corrispondenza generica, esatta e a frase nello stesso gruppo non è più un tabù, a patto che l'intento di ricerca (Search Intent) e la pagina di destinazione siano identici.</div>
+  <div class="i">[Image showing data volume flowing into a single consolidated machine learning node]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Seleziona una Campagna > Impostazioni > Offerte. Solo con volumi consolidati le opzioni di offerta automatizzate qui presenti lavoreranno al massimo dell'efficienza.</div>
+</div>
+
+<div class="s">
+  <div class="t">8. Integrazione DSA in Hagakure</div>
+  <div class="p">Le DSA (Dynamic Search Ads - Annunci Dinamici della Rete di Ricerca) si integrano perfettamente in una struttura consolidata. Usando il contenuto del tuo sito, Google genera dinamicamente titoli e landing page per intercettare ricerche a coda lunga (Long-tail) che non avevi previsto.</div>
+  <div class="p">In una struttura Hagakure, un gruppo di annunci DSA funge da "rete a strascico" per catturare traffico pertinente ed economico, rivelando nuove keyword da estrarre e inserire nei gruppi standard.</div>
+  <div class="i"></div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Campagne > Nuova Campagna > (Setup Gruppo) > Cambia il tipo di gruppo da "Standard" a "Dinamico". Inserisci il dominio del tuo sito per attivare le DSA.</div>
+</div>
+
+<div class="s">
+  <div class="t">9. Corrispondenza Generica (Broad Match) Moderna</div>
+  <div class="p">In passato, la corrispondenza generica (Broad Match) era evitata come la peste perché portava traffico spazzatura. Oggi, associata allo Smart Bidding, è lo strumento di scalabilità per eccellenza.</div>
+  <div class="p">Il Broad Match moderno utilizza decine di segnali (posizione, dispositivo, cronologia di navigazione, intenti) per decidere se l'utente è propenso alla conversione, anche se la query digitata è solo semanticamente legata alla tua keyword.</div>
+  <div class="i">[Image illustrating Broad Match semantic matching using context and AI signals]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Parole chiave > Parole chiave per la rete di ricerca. Clicca il '+' per aggiungere una keyword. Inseriscila senza virgolette o parentesi quadre per attivarla in Broad Match.</div>
+</div>
+
+<div class="s">
+  <div class="t">10. Parole Chiave Escluse (Negative Keywords)</div>
+  <div class="p">Con l'uso estensivo del Broad Match, la gestione delle Parole Chiave Escluse (Negative Keywords) diventa il vero lavoro dell'Account Manager. Devi scolpire il traffico impedendo che l'algoritmo sprechi budget su query irrilevanti.</div>
+  <div class="p">L'utilizzo di elenchi condivisi a livello di account (Account-level Negative Keyword Lists) è una best practice per bloccare termini legati a competitors, gratuità, o settori non pertinenti in modo scalabile.</div>
+  <div class="i"></div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Strumenti e Impostazioni (chiave inglese) > Libreria Condivisa > Elenchi di parole chiave escluse. Crea un elenco e applicalo a più campagne contemporaneamente.</div>
+</div>
+
+<div class="s">
+  <div class="t">11. Value-Based Bidding (VBB)</div>
+  <div class="p">Il VBB (Value-Based Bidding - Offerta basata sul Valore) è il paradigma in cui non ottimizzi più per "volume di conversioni", ma per "valore economico delle conversioni". Non tutti i clienti sono uguali.</div>
+  <div class="p">Comunicando a Google Ads il valore reale di ogni lead (es. tramite l'Importazione di conversioni offline o assegnando valori statici ponderati), l'algoritmo farà offerte più aggressive per gli utenti che statisticamente spendono di più.</div>
+  <div class="i">[Image showing bids adjusting dynamically based on the predicted monetary value of a user]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Strumenti e Impostazioni > Misurazione > Conversioni. Clicca su un'azione di conversione e imposta un "Valore" specifico o dinamico.</div>
+</div>
+
+<div class="s">
+  <div class="t">12. Introduzione allo Smart Bidding</div>
+  <div class="p">Lo Smart Bidding (Offerta Intelligente) racchiude le strategie di offerta automatica basate sul Machine Learning per ottimizzare conversioni o valore delle conversioni in ogni singola asta (Auction-time bidding).</div>
+  <div class="p">A differenza delle offerte manuali sul CPC (Cost Per Click - Costo Per Clic), lo Smart Bidding elabora milioni di segnali in tempo reale che un umano non potrebbe mai analizzare.</div>
+  <div class="i"></div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Seleziona una Campagna > Impostazioni > Sezione "Offerte" (Bidding). Clicca su "Cambia strategia di offerta" per vedere il menu a tendina con le opzioni Smart.</div>
+</div>
+
+<div class="s">
+  <div class="t">13. Target CPA (tCPA)</div>
+  <div class="p">Il tCPA (Target Cost Per Action - Costo Per Azione Target) è una strategia Smart Bidding in cui dici a Google: "Voglio il massimo numero di conversioni, pagando in media X euro per ognuna".</div>
+  <div class="p">L'algoritmo alzerà il CPC massimo se l'utente ha un'alta probabilità di convertire, e lo abbasserà se la probabilità è bassa, puntando a mantenere la media del costo per acquisizione vicino al tuo target nel corso del mese.</div>
+  <div class="i"></div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Nelle Impostazioni Offerta della Campagna, seleziona "Conversioni". Spunta la casella "Imposta un costo per azione (CPA) target" e inserisci un valore monetario.</div>
+</div>
+
+<div class="s">
+  <div class="t">14. Target ROAS (tROAS)</div>
+  <div class="p">Il tROAS (Target Return On Ad Spend - Ritorno Sulla Spesa Pubblicitaria Target) è l'apice del Value-Based Bidding. Dici a Google: "Per ogni euro speso, ne voglio ricavare X". Un tROAS del 300% significa che per 1€ speso, vuoi 3€ di entrate.</div>
+  <div class="p">Per usare il tROAS, il tracciamento delle conversioni DEVE passare valori dinamici (es. il totale del carrello e-commerce). L'algoritmo farà offerte folli per utenti dal carrello altissimo, e offerte minime per chi compra oggetti a basso margine.</div>
+  <div class="i">[Image representing money in versus money out with a percentage multiplier]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Nelle Impostazioni Offerta, scegli "Valore conversione". Spunta "Imposta un ritorno sulla spesa pubblicitaria (ROAS) target" e inserisci una percentuale (es. 250%).</div>
+</div>
+
+<div class="s">
+  <div class="t">15. Portfolio Bid Strategies</div>
+  <div class="p">Le Portfolio Bid Strategies (Strategie di Offerta di Portafoglio) permettono di raggruppare più campagne sotto un unico "cervello" algoritmico. Questo è vitale se hai campagne piccole che da sole non raggiungono la soglia minima di dati per il tCPA o tROAS.</div>
+  <div class="p">Inoltre, le strategie di portafoglio offrono un controllo che a livello di singola campagna è scomparso: la possibilità di impostare un limite massimo al CPC (Max CPC Bid Limit) per salvaguardare il budget in settori iper-competitivi.</div>
+  <div class="i">[Image showing multiple campaigns funneling into a single Portfolio Bid Strategy umbrella]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Strumenti e Impostazioni > Libreria Condivisa > Strategie di Offerta. Clicca il '+' per creare un portafoglio tCPA e applicalo a 2 o più campagne.</div>
+</div>
+
+<div class="s">
+  <div class="t">16. Condivisione Budget vs Portafoglio</div>
+  <div class="p">Un errore comune è confondere il Budget Condiviso (Shared Budget) con la Strategia di Portafoglio. Il Budget Condiviso si assicura solo che le campagne peschino dallo stesso portafoglio economico giornaliero.</div>
+  <div class="p">La Strategia di Portafoglio, invece, condivide l'apprendimento algoritmico (Learning). Puoi avere un Portafoglio di offerta ma budget separati, o viceversa, anche se spesso si usano in tandem per massimizzare l'efficienza.</div>
+  <div class="i">[Image contrasting a shared wallet (budget) vs a shared brain (learning)]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Strumenti e Impostazioni > Libreria Condivisa > Budget Condivisi. Qui puoi creare un pool di denaro a cui le campagne possono attingere liberamente.</div>
+</div>
+
+<div class="s">
+  <div class="t">17. Aggiustamenti di Stagionalità (Seasonality Adjustments)</div>
+  <div class="p">Lo Smart Bidding impara dal passato. Ma cosa succede durante il Black Friday, quando i tassi di conversione (CVR - Conversion Rate) triplicano improvvisamente? L'algoritmo non farebbe offerte abbastanza aggressive all'inizio.</div>
+  <div class="p">Gli Aggiustamenti di Stagionalità (Seasonality Adjustments) permettono di informare l'algoritmo in anticipo: "Dal 24 al 26 Novembre, aspettati un aumento del tasso di conversione del 50%". Google alzerà preventivamente le offerte senza sballare l'apprendimento a lungo termine.</div>
+  <div class="i"></div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Strumenti e Impostazioni > Libreria Condivisa > Strategie di Offerta > Avanzate (o Aggiustamenti Stagionalità). Crea un nuovo evento specificando date e stima percentuale.</div>
+</div>
+
+<div class="s">
+  <div class="t">18. Google Display Network (GDN) Avanzato</div>
+  <div class="p">La Rete Display di Google (GDN - Google Display Network) copre il 90% degli utenti internet. Non si usa per catturare domanda esistente (come la Search), ma per generare consapevolezza (Awareness) o per il Remarketing.</div>
+  <div class="p">A livello avanzato, la Display non si lascia mai in balia dell'algoritmo senza paletti rigorosi, altrimenti il budget viene drenato in posizionamenti su App mobile spazzatura o siti click-bait.</div>
+  <div class="i">[Image showing banners distributed across various news websites and mobile applications]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Nuova Campagna > Obiettivo "Brand awareness e copertura" > Tipo di Campagna "Display". Inizia la configurazione di base.</div>
+</div>
+
+<div class="s">
+  <div class="t">19. Segmenti di Pubblico per Intenzione (Custom Intent)</div>
+  <div class="p">I segmenti di pubblico personalizzati per intenzione (Custom Intent Audiences) sono l'arma segreta della GDN. Permettono di mostrare banner a utenti che hanno recentemente cercato specifiche parole chiave sulla rete di ricerca di Google (Google.com).</div>
+  <div class="p">Stiamo essenzialmente portando l'altissimo intento della Search nei banner a basso costo della Rete Display. Inserendo le keyword dei vostri competitor, potrete colpire i loro potenziali clienti mentre leggono i giornali online.</div>
+  <div class="i">[Image showing search queries turning into targeted display banners on other sites]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Strumenti > Gestione Segmenti di Pubblico > Segmenti Personalizzati. Crea un segmento scegliendo "Persone che hanno cercato uno qualsiasi di questi termini su Google".</div>
+</div>
+
+<div class="s">
+  <div class="t">20. Posizionamenti Gestiti (Placement Targeting)</div>
+  <div class="p">Invece di affidarvi ai segmenti di pubblico, i Posizionamenti Gestiti (Placement Targeting) vi permettono di scegliere esattamente gli URL, i canali YouTube o le App specifiche in cui i vostri banner appariranno.</div>
+  <div class="p">Questo metodo offre un controllo chirurgico ed è essenziale per campagne B2B iper-targettizzate, dove volete apparire solo su testate giornalistiche finanziarie specifiche, ignorando il resto del web.</div>
+  <div class="i"></div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Dentro un Gruppo di Annunci Display, vai su Contenuti > Posizionamenti. Inserisci manualmente un elenco di URL specifici (es. forbes.com, wired.com).</div>
+</div>
+
+<div class="s">
+  <div class="t">21. Esclusioni di Categoria e Contenuti (GDN)</div>
+  <div class="p">Il brand safety è cruciale. Non volete che il vostro banner aziendale appaia accanto a notizie di cronaca nera o siti per adulti. Le esclusioni a livello di account proteggono l'immagine aziendale.</div>
+  <div class="p">Una best practice operativa assoluta è escludere costantemente la categoria "App Mobile" se l'obiettivo è la Lead Generation B2B, poiché la maggior parte dei clic dalle app sono "Fat-finger" (clic accidentali mentre si gioca).</div>
+  <div class="i"></div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Impostazioni Campagna Display > Esclusioni Contenuti. Deseleziona "Tragedie e conflitti", "Contenuti sensibili", ecc. Per le app, escludi il posizionamento "mobileappcategory::69500".</div>
+</div>
+
+<div class="s">
+  <div class="t">22. Conversioni View-Through (VTC)</div>
+  <div class="p">Le Conversioni View-Through (VTC - Conversioni post-visualizzazione) si verificano quando un utente vede un tuo banner Display, NON clicca, ma successivamente visita il tuo sito (magari cercando il brand su Google) e converte.</div>
+  <div class="p">Misurare le VTC è vitale per valutare il reale impatto delle campagne Display, che agiscono a livello visivo e subconscio. Senza di esse, la Display sembrerà sempre un fallimento rispetto alla Search.</div>
+  <div class="i">[Image representing an eye seeing an ad, followed by a time delay, and then a conversion]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Campagne > Colonne > Modifica Colonne > Conversioni. Aggiungi la colonna "Conversioni view-through" per vedere questi dati nei tuoi report Display.</div>
+</div>
+
+<div class="s">
+  <div class="t">23. Ottimizzazione Annunci Display Adattabili (RDA)</div>
+  <div class="p">Gli RDA (Responsive Display Ads - Annunci Display Adattabili) hanno soppiantato i vecchi banner statici caricati in formato .jpg. Inserite asset separati (loghi, immagini orizzontali/quadrate, titoli, descrizioni) e Google li assembla dinamicamente in base allo spazio disponibile sul sito ospite.</div>
+  <div class="p">L'ottimizzazione avanzata richiede di controllare regolarmente il report degli asset per vedere quali immagini ottengono la classificazione "Migliore" (Best) dall'algoritmo, sostituendo quelle contrassegnate come "Scarsa" (Low).</div>
+  <div class="i">[Image showing various image and text assets being dynamically combined into different ad sizes]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Dentro la Campagna Display > Annunci e Asset. Clicca su "Visualizza dettagli asset" sotto un RDA per vedere le metriche di rendimento di ogni singola immagine e testo.</div>
+</div>
+
+<div class="s">
+  <div class="t">24. Tracciamento Cross-Device</div>
+  <div class="p">Gli utenti oggi iniziano la ricerca su smartphone e concludono l'acquisto su desktop. Google Ads, grazie al fatto che gli utenti sono spesso loggati nel browser Chrome o su Android, traccia nativamente queste conversioni Cross-Device.</div>
+  <div class="p">Queste conversioni vengono incluse di default nella colonna "Conversioni", permettendo allo Smart Bidding di fare offerte corrette sapendo che un clic mobile genera valore differito su desktop.</div>
+  <div class="i">[Image showing a user journey starting on a mobile phone and ending with a purchase on a laptop]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Report (in alto a destra) > Conversioni > Dispositivi Cross-Device. Qui puoi vedere i pattern di movimento degli utenti tra i vari device prima dell'acquisto.</div>
+</div>
+
+<div class="s">
+  <div class="t">25. Remarketing Avanzato</div>
+  <div class="p">Il Remarketing di base (mostrare annunci a tutti i visitatori del sito) è obsoleto. Le strategie avanzate prevedono la segmentazione per profondità di funnel: utenti che hanno visto il carrello vs utenti che hanno letto solo il blog.</div>
+  <div class="p">Si applicano strategie di offerta differenziate o modificatori di offerta per le liste di remarketing associate alla rete di ricerca (RLSA - Remarketing Lists for Search Ads). Un carrello abbandonato vale un CPC molto più alto rispetto a un utente freddo.</div>
+  <div class="i"></div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Strumenti > Gestione Segmenti di Pubblico. Crea un "Segmento di visitatori del sito web", specificando l'URL del carrello per isolare chi è arrivato in fondo al funnel.</div>
+</div>
+
+<div class="s">
+  <div class="t">26. Remarketing Dinamico</div>
+  <div class="p">Il Remarketing Dinamico è l'evoluzione per gli e-commerce. Mostra all'utente esattamente i prodotti specifici che ha visualizzato sul sito, inserendoli dinamicamente nei banner Display.</div>
+  <div class="p">Richiede un tracciamento avanzato sul sito (che passi gli ID dei prodotti visualizzati) e un Feed Dati Prodotti caricato su Google Merchant Center. L'algoritmo calcolerà anche quali prodotti correlati mostrare per il cross-selling.</div>
+  <div class="i"></div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Impostazioni Campagna Display > Dati Dinamici. Spunta "Usa un feed di dati per annunci personalizzati" e seleziona l'account Merchant Center collegato.</div>
+</div>
+
+<div class="s">
+  <div class="t">27. Customer Match (Dati di Prima Parte)</div>
+  <div class="p">Il Customer Match è l'uso dei Dati di Prima Parte (1st Party Data). Consente di caricare liste di indirizzi email, numeri di telefono o indirizzi fisici dei vostri clienti direttamente in Google Ads.</div>
+  <div class="p">Google "cripterà" i dati e cercherà di abbinarli (Match) agli account Google esistenti. Potrete usare queste liste per fare up-selling ai clienti attuali o escluderli dalle campagne di acquisizione per non sprecare budget.</div>
+  <div class="i">[Image showing a CSV list of emails being uploaded and matched against Google users]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Strumenti > Gestione Segmenti di Pubblico. Clicca il '+' e scegli "Elenco clienti" (Customer List). Carica un file CSV di prova ben formattato (SHA256 hashed o in chiaro per l'auto-hashing).</div>
+</div>
+
+<div class="s">
+  <div class="t">28. Tasso di Corrispondenza (Match Rate)</div>
+  <div class="p">Quando caricate un file Customer Match, non otterrete mai il 100%. Il Match Rate (Tasso di Corrispondenza) è la percentuale di email del vostro CRM che Google è riuscito a collegare a un account Google reale.</div>
+  <div class="p">Un buon Match Rate B2C oscilla tra il 40% e il 60%. Nel B2B è drasticamente inferiore, poiché gli utenti navigano spesso loggati con account Gmail personali, mentre voi avete le loro mail aziendali. Fornire dati multipli (Email + Telefono) aumenta il tasso.</div>
+  <div class="i"></div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Dopo aver caricato un Elenco Clienti in Gestione Segmenti di Pubblico, attendi 24 ore. Nella riga dell'elenco, osserva la colonna "Tasso di corrispondenza" per valutarne l'efficacia.</div>
+</div>
+
+<div class="s">
+  <div class="t">29. Audience Expansion vs Lookalike</div>
+  <div class="p">Google Ads ha ritirato i "Segmenti Simili" (Lookalike) statici. Oggi si utilizza l'Audience Expansion (Espansione del Pubblico) o il targeting ottimizzato.</div>
+  <div class="p">Fornendo il vostro Customer Match o lista di conversione come "Segnale", l'algoritmo cercherà autonomamente sul web utenti con pattern comportamentali simili. Il controllo si riduce, delegando tutto all'intelligenza artificiale per trovare scala.</div>
+  <div class="i">[Image illustrating a core seed audience expanding dynamically to include similar users]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Impostazioni del Gruppo di Annunci Display o Video > Targeting Ottimizzato. Spunta la casella "Usa il targeting ottimizzato" per lasciare espandere il raggio d'azione oltre le liste definite.</div>
+</div>
+
+<div class="s">
+  <div class="t">30. App Campaigns (UAC) - Basi</div>
+  <div class="p">Le Campagne per App (UAC - Universal App Campaigns) servono a promuovere app iOS e Android su Rete di Ricerca, Google Play, YouTube e GDN.</div>
+  <div class="p">A differenza della Search, le UAC sono "Black Box": non scegliete le parole chiave né posizionamenti. Inserite asset (testi, video, immagini), il budget e l'obiettivo (installazioni o azioni in-app), e l'algoritmo fa letteralmente tutto il resto.</div>
+  <div class="i">[Image showing a mobile app ad appearing across Google Play, YouTube, and Google Search]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Nuova Campagna > Obiettivo "Promozione di app" > Tipo di campagna "App". Inserisci l'URL del tuo gioco/app dallo store per iniziare.</div>
+</div>
+
+<div class="s">
+  <div class="t">31. UAC per Installazioni vs Azioni</div>
+  <div class="p">Esistono due macro-strategie per le UAC. La prima è "Focus sulle Installazioni" (tCPI - Target Cost Per Install): l'algoritmo cerca di ottenere il massimo volume di download al minor costo.</div>
+  <div class="p">La seconda, avanzata, è "Focus sulle Azioni in-App" (tCPA per App): l'algoritmo ignora gli scaricatori compulsivi e cerca utenti propensi a completare un'azione specifica dentro l'app, come un acquisto in-app (IAP) o il superamento del Livello 10.</div>
+  <div class="i">[Image contrasting a high volume of installs vs a low volume of high-value in-app purchases]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Nel setup UAC, vai su "Offerte". Dal menu a tendina "Su cosa vuoi concentrarti?", scegli "Azioni in-app" anziché "Volume installazioni".</div>
+</div>
+
+<div class="s">
+  <div class="t">32. Firebase & SDK Integrations</div>
+  <div class="p">Per fare campagne App avanzate (focus azioni in-app), Google Ads DEVE sapere cosa succede dopo l'installazione. Questo si ottiene integrando l'SDK di Firebase (o di terze parti) dentro il codice dell'app.</div>
+  <div class="p">Firebase traccerà eventi come 'ecommerce_purchase' o 'tutorial_complete' e li comunicherà in tempo reale a Google Ads, permettendo all'algoritmo tCPA di apprendere e ottimizzare.</div>
+  <div class="i">[Image showing data flowing from a mobile app SDK back to the Google Ads platform]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Strumenti > Account Collegati. Trova "Google Analytics (GA4) e Firebase" e clicca "Gestisci e collega" per importare le conversioni in-app della tua proprietà.</div>
+</div>
+
+<div class="s">
+  <div class="t">33. MMP (Mobile Measurement Partners)</div>
+  <div class="p">Aziende enterprise usano spesso piattaforme terze (MMP come AppsFlyer, Adjust o Kochava) invece di Firebase per la misurazione, poiché fungono da arbitro imparziale tra le varie fonti di traffico (Facebook Ads, Google Ads, TikTok).</div>
+  <div class="p">Tramite i Postback URL, l'MMP informa Google Ads delle installazioni e conversioni a lui attribuite, risolvendo le complicanze del tracciamento iOS (SKAdNetwork) post-iOS 14.</div>
+  <div class="i">[Image showing an MMP acting as a central hub between an App and various advertising networks]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Strumenti > Misurazione > Conversioni > Nuova Azione. Seleziona "App" e poi "Analisi app di terze parti" per configurare il collegamento con un MMP.</div>
+</div>
+
+<div class="s">
+  <div class="t">34. UAC per Valore (tROAS per App)</div>
+  <div class="p">Il livello definitivo per le App Campaigns (specie per Mobile Gaming e E-commerce app) è il tROAS. Non si cerca solo chi compra, ma chi compra tanto (es. le "Balene" nel gaming).</div>
+  <div class="p">L'algoritmo valuterà dati predittivi dell'utente per capire se spenderà 100€ in microtransazioni o 1€. Le offerte per vincere l'asta di un utente "alto spendente" saranno drasticamente maggiori.</div>
+  <div class="i"></div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Offerte Campagna App > Su cosa vuoi concentrarti? Seleziona "Valore azione in-app". Specifica un ROAS target (es. 150%). Richiede volumi di acquisto significativi per sbloccarsi.</div>
+</div>
+
+<div class="s">
+  <div class="t">35. Performance Max (PMax) - Introduzione</div>
+  <div class="p">Le Performance Max (PMax) sono il culmine dell'automazione di Google. Sostituiscono le campagne Shopping intelligenti e Locali. Una singola campagna PMax ha accesso a TUTTO l'inventario Google: Search, Display, YouTube, Discover, Gmail, Maps.</div>
+  <div class="p">Rappresentano una scatola nera algoritmica. Voi fornite asset creativi e obiettivi di business, PMax gestisce dinamicamente budget, posizionamenti e offerte senza intervento umano sui singoli canali.</div>
+  <div class="i"></div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Nuova Campagna > Obiettivo "Vendite" o "Lead" > Tipo "Performance Max". Nota come ti venga richiesto subito di collegare il Merchant Center (se e-commerce).</div>
+</div>
+
+<div class="s">
+  <div class="t">36. Asset Groups (Gruppi di Asset)</div>
+  <div class="p">In PMax non esistono i Gruppi di Annunci, ma i Gruppi di Asset (Asset Groups). Un gruppo di asset raccoglie titoli, descrizioni lunghe, immagini quadrate/orizzontali e video.</div>
+  <div class="p">In un e-commerce, creerete un Gruppo di Asset per le "Scarpe Invernali" (con testi e immagini a tema neve) e uno per le "Scarpe Estive". L'algoritmo mescolerà i vostri asset per creare l'annuncio perfetto per ogni placement.</div>
+  <div class="i">[Image illustrating various text, image, and video assets being combined dynamically]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Dentro la configurazione PMax, arriva alla sezione "Gruppo di asset". Inserisci almeno 5 immagini, 5 loghi, 5 titoli brevi e 1 video YouTube (obbligatorio per performance ottimali).</div>
+</div>
+
+<div class="s">
+  <div class="t">37. Segnali dei Segmenti di Pubblico in PMax</div>
+  <div class="p">Non potendo targetizzare un pubblico in PMax, si usano i "Segnali". Fornendo una lista di clienti (Customer Match) o un'intenzione di ricerca personalizzata come "Segnale", state dando all'algoritmo una traccia da seguire.</div>
+  <div class="p">Google Ads darà priorità a questi segmenti all'inizio, ma esplorerà liberamente al di fuori di essi se ritiene di poter trovare conversioni più economiche altrove. È un suggerimento, non un vincolo.</div>
+  <div class="i">[Image showing an audience signal pointing an AI algorithm in the right starting direction]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Sotto il Gruppo di Asset, vai su "Segnali dei segmenti di pubblico". Crea un segnale aggiungendo i visitatori del tuo sito web e parole chiave di intento personalizzato.</div>
+</div>
+
+<div class="s">
+  <div class="t">38. Espansione dell'URL finale (URL Expansion)</div>
+  <div class="p">Di default, PMax attiva l'Espansione dell'URL. Significa che anche se impostate la Home come URL di atterraggio, l'algoritmo cambierà l'URL per puntare a pagine interne (es. un articolo blog) se lo ritiene pertinente alla ricerca dell'utente.</div>
+  <div class="p">Per siti aziendali complessi, è vitale escludere URL come "Privacy Policy", "Lavora con noi" o "Chi siamo", altrimenti PMax sprecherà budget inviando traffico lì perché algoritmicamente "pertinente".</div>
+  <div class="i">[Image showing URL Expansion redirecting traffic from the homepage to specific category pages]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Impostazioni Campagna PMax > Espansione URL finale. Aggiungi URL da escludere o regole (es. URL contiene "careers") per bloccare l'espansione.</div>
+</div>
+
+<div class="s">
+  <div class="t">39. Gruppi di Schede (Listing Groups)</div>
+  <div class="p">Se avete collegato un Google Merchant Center, in PMax dovrete definire i Gruppi di Schede (Listing Groups). Sostituiscono i Gruppi di Prodotti delle vecchie Shopping.</div>
+  <div class="p">Specificate quali ID prodotto o Categorie (Brands) verranno sponsorizzate da quel Gruppo di Asset. Se non filtrate, l'intero catalogo e-commerce verrà erogato insieme.</div>
+  <div class="i"></div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Nel Gruppo di Asset, clicca su "Gruppi di schede". Usa la struttura ad albero per escludere o includere prodotti specifici in base al Brand o all'Etichetta Personalizzata.</div>
+</div>
+
+<div class="s">
+  <div class="t">40. Demand Gen (Generazione della Domanda)</div>
+  <div class="p">Le campagne Demand Gen (evoluzione delle Discovery) operano su YouTube (Shorts e In-Stream), Discover Feed e Gmail. Sono campagne altamente visive (Visual-first) progettate per stimolare la domanda dove non c'è intento di ricerca attivo.</div>
+  <div class="p">A differenza della PMax, qui non fornite parole chiave di ricerca; il targeting è basato interamente su Segmenti di Pubblico, Lookalikes ad altissima precisione e interessi.</div>
+  <div class="i">[Image showing highly visual ads appearing on YouTube Shorts, Google Discover, and Gmail inboxes]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Nuova Campagna > Obiettivo Vendite/Lead > Tipo di Campagna "Demand Gen". Prepara formati verticali (9:16) indispensabili per i posizionamenti YouTube Shorts.</div>
+</div>
+
+<div class="s">
+  <div class="t">41. Segmenti Simili in Demand Gen (Lookalikes)</div>
+  <div class="p">Demand Gen è l'unica campagna Google Ads moderna che re-introduce esplicitamente il concetto di Lookalike (pubblico simile), permettendo di scegliere la "strettezza" (Reach) del segmento (Stretto 2.5%, Equilibrato 5%, Ampio 10%).</div>
+  <div class="p">Fornite una Seed List (es. i vostri Top Buyers dal CRM) e Demand Gen cercherà il 2.5% degli utenti di un dato paese che somigliano in modo spaventoso ai vostri migliori clienti.</div>
+  <div class="i">[Image showing a slider from Narrow (2.5%) to Broad (10%) for Lookalike audience expansion]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>In una Demand Gen, vai sui Segmenti di Pubblico. Crea un "Segmento Simile", seleziona il tuo elenco clienti Customer Match come base e sposta lo slider su "Stretto".</div>
+</div>
+
+<div class="s">
+  <div class="t">42. Offline Conversion Tracking (OCT)</div>
+  <div class="p">L'OCT (Tracciamento delle Conversioni Offline) è essenziale per il B2B. Sul sito tracciamo il "Lead" form, ma 2 mesi dopo quel lead firma un contratto da 50.000€ (Offline). Google non lo sa.</div>
+  <div class="p">Ricaricando questi dati su Google Ads, l'algoritmo Smart Bidding apprenderà quali click generano contratti milionari e quali generano solo contatti spazzatura, spostando il budget sui primi (Value-Based Bidding puro).</div>
+  <div class="i">[Image depicting an online form submission leading to an offline contract, with data flowing back to Google]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Strumenti > Conversioni > Nuova Azione. Scegli "Importazione" (Import) e seleziona "CRM, file o altra origine dati". Scegli "Monitora le conversioni dai clic".</div>
+</div>
+
+<div class="s">
+  <div class="t">43. Il parametro GCLID</div>
+  <div class="p">Come fa Google a ricollegare la vendita offline di un cliente al click di 2 mesi prima? Tramite il GCLID (Google Click Identifier). È un parametro univoco che Google aggiunge all'URL quando un utente clicca un annuncio (es. `?gclid=XyZ123`).</div>
+  <div class="p">Il vostro sito deve catturare questo GCLID tramite un campo nascosto del modulo di contatto e salvarlo nel CRM aziendale insieme all'email del lead.</div>
+  <div class="i">[Image showing the GCLID parameter in a URL being captured into a hidden form field]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Impostazioni Account. Assicurati che "Codifica automatica" (Auto-tagging) sia SPUNTATO. È obbligatorio per generare il GCLID e abilitare l'OCT.</div>
+</div>
+
+<div class="s">
+  <div class="t">44. Importazione Dati OCT (UI vs API)</div>
+  <div class="p">Esistono due modi per importare l'OCT: manuale e automatico. Manualmente, il marketer esporta dal CRM un file CSV contenente i GCLID "chiusi", la data di chiusura e il valore economico, caricandolo a mano nell'interfaccia.</div>
+  <div class="p">Nelle grandi Enterprise, si utilizza la Google Ads API o integrazioni native (es. Salesforce to Google Ads) per inviare questi dati in tempo reale o ogni notte, automatizzando il loop di feedback.</div>
+  <div class="i">[Image illustrating manual CSV upload versus an automated API connection like Salesforce]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Strumenti > Conversioni > Caricamenti (Uploads). Qui puoi cliccare '+' e caricare il tuo file CSV formattato secondo il template Google per l'Offline Tracking.</div>
+</div>
+
+<div class="s">
+  <div class="t">45. Conversioni Avanzate (Enhanced Conversions)</div>
+  <div class="p">Con i cookie di terze parti in declino e i blocchi browser (ITP di Apple), molte conversioni non vengono tracciate. Le Conversioni Avanzate (EC - Enhanced Conversions) risolvono il problema inviando dati di Prima Parte (1st Party).</div>
+  <div class="p">Quando un utente compra/compila un modulo, il sito "cattura" la sua Email e Numero di telefono, li cripta (hashing) e li invia a Google, che fa un matching server-side con gli account Google loggati, recuperando la conversione persa.</div>
+  <div class="i">[Image showing plain text email being hashed (SHA-256) and sent securely to Google for matching]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Strumenti > Conversioni > Dettagli Azione di Conversione. Scorri in basso ed espandi "Conversioni avanzate" (Turn on enhanced conversions) e accetta i termini.</div>
+</div>
+
+<div class="s">
+  <div class="t">46. EC: Hashing SHA-256</div>
+  <div class="p">Per ragioni legali e di privacy (GDPR), i dati sensibili non vengono MAI inviati in chiaro. Devono essere trasformati tramite l'algoritmo crittografico unidirezionale SHA-256 prima di lasciare il browser dell'utente.</div>
+  <div class="p">Fortunatamente, se usate Google Tag Manager (GTM) o il Global Site Tag (gtag.js), Google esegue automaticamente l'hashing nel browser prima della trasmissione. Voi dovete solo mappare correttamente le variabili (es. variabile Javascript `email_input`).</div>
+  <div class="i">[Image representing the SHA-256 encryption process transforming an email into a string of characters]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>In GTM (Google Tag Manager), nel Tag "Google Ads Conversion Tracking", spunta la voce "Fornisci i dati forniti dagli utenti" e seleziona la variabile contenente l'email catturata dal DOM.</div>
+</div>
+
+<div class="s">
+  <div class="t">47. DDA: Data-Driven Attribution</div>
+  <div class="p">I vecchi modelli (Last-Click) davano tutto il merito all'ultimo clic prima dell'acquisto, svalutando il lavoro fatto dalle campagne Upper-Funnel (es. Display o Generiche Search).</div>
+  <div class="p">L'Attribuzione Basata sui Dati (DDA - Data-Driven Attribution) utilizza il Machine Learning per distribuire in modo frazionario (es. 0.3 a Social, 0.5 a Generic Search, 0.2 a Brand Search) il credito della conversione su tutti i touchpoint in base al loro reale impatto probabilistico.</div>
+  <div class="i">[Image showing a fractional conversion value (e.g., 0.4, 0.6) distributed across multiple ad interactions]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Strumenti > Misurazione > Attribuzione > Modelli di attribuzione. Verifica che tutte le azioni di conversione primarie siano impostate su "Basata sui dati" (selezionato di default sui nuovi account).</div>
+</div>
+
+<div class="s">
+  <div class="t">48. Requisiti Dati per DDA</div>
+  <div class="p">In passato, il modello DDA era un lusso per pochi: richiedeva 15.000 clic e 600 conversioni in 30 giorni per attivarsi. Oggi, grazie a modelli più flessibili, Google lo rende disponibile e di default per quasi tutti gli account, indipendentemente dal volume di dati.</div>
+  <div class="p">Questo comporta che vedrete molto spesso dei decimali nelle vostre colonne delle conversioni (es. Campagna X ha generato 14.3 conversioni). È la matematica frazionaria del DDA in azione.</div>
+  <div class="i">[Image displaying a Google Ads report column showing fractional conversions like 4.5 or 12.8]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Campagne > Tabelle. Guarda la tua colonna "Conversioni". Se vedi numeri decimali e non interi, il DDA o le stime del modello comportamentale sono all'opera.</div>
+</div>
+
+<div class="s">
+  <div class="t">49. Finestra di Conversione e Ritardo (Time Lag)</div>
+  <div class="p">Il Ritardo di Conversione (Time Lag) è il tempo in giorni che intercorre tra il primo click sull'annuncio e l'effettiva transazione. In B2B, può essere di 60 o 90 giorni.</div>
+  <div class="p">Nelle colonne di Google Ads, la conversione viene assegnata al giorno del CLICK, non al giorno della vendita. Se la conversione avviene oggi, ma il clic risale a martedì scorso, vedrete la conversione attribuita al report di martedì.</div>
+  <div class="i">[Image showing a timeline calendar illustrating the gap between Ad Click and Purchase Event]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Strumenti > Attribuzione > Metriche del percorso > Ritardo (Time Lag). Questo report vitale mostra quanti giorni ci mettono mediamente i tuoi clienti a decidere.</div>
+</div>
+
+<div class="s">
+  <div class="t">50. Automazione tramite Regole (Automated Rules)</div>
+  <div class="p">Gestire decine di campagne richiede automazione di base. Le Regole Automatizzate permettono di impostare azioni IFTTT (If This Then That).</div>
+  <div class="p">Esempi classici: "Metti in pausa gli annunci con spesa > 50€ e 0 Conversioni negli ultimi 7 giorni", oppure "Aumenta l'offerta del 10% se il Costo Per Conversione è inferiore a 10€". Utili per la manutenzione notturna e nei weekend.</div>
+  <div class="i"></div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Strumenti e Impostazioni > Azioni Collettive > Regole (Rules). Clicca '+' per creare una regola basata sulle performance a livello di keyword, annuncio o campagna.</div>
+</div>
+
+<div class="s">
+  <div class="t">51. Google Ads Scripts: Introduzione</div>
+  <div class="p">Quando le Regole Automatizzate non bastano, entrano in gioco gli Script. Scritti in JavaScript (basati sull'infrastruttura Google Apps Script), permettono di controllare programmaticamente l'intero account.</div>
+  <div class="p">Si possono collegare a database esterni, a Fogli Google (Google Sheets) o API esterne. Un Senior Specialist deve saper manipolare e comprendere gli script per automatizzare la reportistica o le allerte sui server.</div>
+  <div class="i">[Image displaying lines of JavaScript code within the Google Ads Script Editor environment]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Strumenti e Impostazioni > Azioni Collettive > Script. Clicca il '+' per aprire l'editor IDE integrato. Copia e incolla un frammento di JS per testarlo (senza eseguirlo su campagne attive).</div>
+</div>
+
+<div class="s">
+  <div class="t">52. Scripts: Account vs MCC Level</div>
+  <div class="p">Gli script possono essere eseguiti a livello di singolo account (Single Account Script) o a livello di Centro Clienti (MCC - My Client Center).</div>
+  <div class="p">Uno script a livello MCC (es. l'estrazione di metriche di performance giornaliere in un Foglio Google) eseguirà un loop ciclico iterando su tutti i sotto-account (Clienti) collegati. È il vero motore della scalabilità in Agenzia o grandi Multinazionali.</div>
+  <div class="i">[Image showing a hierarchical structure with an MCC node running a script across multiple child accounts]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Accedi al tuo account gestore MCC > Strumenti > Script. La dicitura nell'editor cambierà per includere metodi come `AdsManagerApp.accounts()`.</div>
+</div>
+
+<div class="s">
+  <div class="t">53. Esempio Script: Il Link Checker</div>
+  <div class="p">Un classico script aziendale salvavita è il Link Checker (Controllo link non funzionanti). Lo script passa in rassegna migliaia di URL di destinazione dei vostri annunci.</div>
+  <div class="p">Se il sito risponde con un Errore 404 (Pagina non trovata) o un Errore 500 (Server down), lo script mette immediatamente in pausa l'annuncio e invia una mail al team tecnico. Previene lo spreco di migliaia di euro per campagne dirette verso pagine cadute o rimosse.</div>
+  <div class="i">[Image depicting a script checking URLs and sending an email alert when a 404 error is found]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Nella libreria Script (Editor), clicca su "Nuovo Script". Inserisci il codice open-source del Google Link Checker. Modifica la variabile `EMAIL_ADDRESS` con la tua e salvalo.</div>
+</div>
+
+<div class="s">
+  <div class="t">54. Esempio Script: Weather-Based Bidding</div>
+  <div class="p">Script complessi possono interagire con API di terze parti (come OpenWeatherMap). Immaginate un e-commerce di ombrelli.</div>
+  <div class="p">Lo script controlla il meteo in tempo reale sulle città targettizzate. Se rileva pioggia, esegue un "Bid Modifier" (+50% di offerta). Se splende il sole, mette in pausa l'annuncio. Questo è un livello di reattività impossibile da gestire manualmente.</div>
+  <div class="i">[Image showing weather icons (rain, sun) triggering different bidding actions in the account]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Questa è un'implementazione custom. Richiede l'uso del metodo `UrlFetchApp.fetch(API_URL)` all'interno dell'editor Script per recuperare i dati JSON dal servizio meteo.</div>
+</div>
+
+<div class="s">
+  <div class="t">55. Il Framework per l'A/B Testing</div>
+  <div class="p">Nel marketing data-driven, non si presume nulla, si testa tutto. Google Ads offre strumenti nativi rigorosi per eseguire test controllati dal punto di vista statistico, garantendo che le decisioni si basino su causalità, non casualità.</div>
+  <div class="p">Il framework degli "Esperimenti" (Experiments) permette di creare un clone di una campagna, modificare una singola variabile e splittare il traffico al 50/50, confrontando i KPI chiave (CPA o ROAS).</div>
+  <div class="i">[Image showing an A/B test split routing 50% traffic to Variation A and 50% to Variation B]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Menu a sinistra > Esperimenti. Seleziona "Esperimenti sulle Campagne" per iniziare il processo di creazione di un test controllato.</div>
+</div>
+
+<div class="s">
+  <div class="t">56. Esperimenti Personalizzati (Custom Experiments)</div>
+  <div class="p">Per testare un nuovo modello di Smart Bidding (es. da tCPA a tROAS) o una nuova Landing Page, si crea un Esperimento Personalizzato. Google duplica la campagna originale chiamandola "Gruppo di prova".</div>
+  <div class="p">Regola d'oro: Modificate sempre UNA sola variabile per test (One variable at a time). Se cambiate contemporaneamente Landing Page e Strategia di Bidding, in caso di successo non saprete mai a quale dei due fattori attribuire il merito.</div>
+  <div class="i">[Image illustrating a Control Campaign running alongside a Trial Campaign with one isolated change]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Dentro Esperimenti, clicca '+'. Seleziona la tua Campagna Base, dai un nome al Test, scegli la percentuale di split del budget (solitamente 50%) e applica le modifiche desiderate al braccio di prova.</div>
+</div>
+
+<div class="s">
+  <div class="t">57. Split basato su Ricerca vs Cookie</div>
+  <div class="p">Nelle opzioni avanzate degli Esperimenti Rete di Ricerca, potete decidere come splittare il traffico. Split basato sulla Ricerca (Search-based) o Split basato sui Cookie (Cookie-based).</div>
+  <div class="p">Cookie-based assicura che se l'utente X vede l'Esperimento A oggi, vedrà SEMPRE l'Esperimento A anche domani. È vitale per proteggere la UX (User Experience) ed evitare di sballare i dati di conversione a lungo termine.</div>
+  <div class="i">[Image showing cookies ensuring a user consistently sees the same test variation across multiple visits]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Nella configurazione dell'Esperimento (Avanzate), troverai l'opzione di divisione basata su "Cookie" o "Ricerca". Seleziona Cookie per risultati statisticamente più puliti.</div>
+</div>
+
+<div class="s">
+  <div class="t">58. Valutare la Significatività Statistica</div>
+  <div class="p">Un esperimento non finisce quando il CPA scende, ma quando si raggiunge la Significatività Statistica (Statistical Significance) almeno al 90-95%. Significa avere la certezza matematica che il risultato non è frutto del caso.</div>
+  <div class="p">La dashboard degli Esperimenti di Google mostra un "Asterisco" o un diamante blu accanto alle metriche quando il divario tra Originale e Prova è statisticamente sicuro. Solo a quel punto dovreste premere il tasto "Applica" per rendere permanente il cambiamento.</div>
+  <div class="i">[Image showing a dashboard table with a statistical significance marker next to a performance metric]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Apri un Esperimento in corso. Guarda i report. Se i dati mostrano miglioramenti ma la riga è grigia senza marker statistici, il test deve accumulare più traffico prima di decidere.</div>
+</div>
+
+<div class="s">
+  <div class="t">59. CAC (Customer Acquisition Cost) vs CPA</div>
+  <div class="p">Un chiarimento fondamentale a livello manageriale. In Google Ads leggete il CPA (Costo Per Azione), ovvero quanto costa ottenere un "Lead" (Contatto). Questo NON è il CAC (Customer Acquisition Cost).</div>
+  <div class="p">Il CAC calcola quanto costa acquisire un Cliente Pagante reale. Se il vostro CPA è 10€, ma solo 1 lead su 10 si converte in contratto, il vostro CAC reale derivante da Google Ads è 100€. Integrare l'OCT (visto prima) allinea finalmente il CPA della piattaforma al CAC aziendale.</div>
+  <div class="i">[Image illustrating the formula: CPA * Lead-to-Customer Ratio = Real Customer Acquisition Cost]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Questa è una valutazione fuori piattaforma. Usate i report di Google Ads e incrociateli con il tasso di chiusura (Close Rate) estratto dal vostro sistema CRM aziendale.</div>
+</div>
+
+<div class="s">
+  <div class="t">60. Ad Rank e Punteggio di Qualità (QS)</div>
+  <div class="p">Mettiamo ordine nell'algoritmo di asta. L'Ad Rank (Classifica dell'Annuncio) decide se il tuo annuncio appare sopra il competitor. La formula base è: `Ad Rank = Max Bid (Offerta) x Quality Score (Punteggio di Qualità) + Impatto Estensioni`.</div>
+  <div class="p">Il Quality Score (QS) va da 1 a 10. Avere un QS di 10 significa che Google considera il tuo annuncio ed esperienza d'uso così perfetti da farti pagare un CPC drasticamente inferiore (Sconto) rispetto a un competitor con QS basso ma offerta economica altissima.</div>
+  <div class="i">[Image showing the Ad Rank formula weighing Max CPC against Quality Score metrics]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Parole Chiave > Colonne > Modifica Colonne > Punteggio di Qualità. Aggiungi il Punteggio di qualità, l'Esperienza di pagina e la Pertinenza per indagare sui costi alti delle keyword.</div>
+</div>
+
+<div class="s">
+  <div class="t">61. Ottimizzare le componenti del Quality Score</div>
+  <div class="p">Il Punteggio di Qualità non è un numero magico, è diviso in tre sotto-metriche visibili: 1. CTR Atteso (Percentuale di Clic Prevista), 2. Pertinenza dell'Annuncio, 3. Esperienza sulla Pagina di Destinazione (Landing Page Experience).</div>
+  <div class="p">Per migliorare l'Esperienza Pagina, riducete i tempi di caricamento mobile, assicuratevi che il termine ricercato sia presente nei tag H1/H2 e riducete i popup bloccanti che penalizzano il layout cumulativo.</div>
+  <div class="i">[Image showing the three pillars of Quality Score: Expected CTR, Ad Relevance, and Landing Page Experience]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Dalla tabella Parole Chiave con le colonne aggiunte al lab precedente, individuate una keyword con QS basso e verificate quale delle 3 sottometriche è segnata come "Sotto la media". Lì si interviene.</div>
+</div>
+
+<div class="s">
+  <div class="t">62. Campagne Search con RSAs</div>
+  <div class="p">Gli Annunci di Testo Espansi (ETA) non esistono più. Il formato standard è l'Annuncio della Rete di Ricerca Adattabile (RSA - Responsive Search Ad). Fino a 15 Titoli e 4 Descrizioni.</div>
+  <div class="p">L'algoritmo testa combinazioni infinite. In contesti regolamentati (Farmaceutico, Finanza), potete usare il "Pin" per forzare un titolo (es. "Messaggio Pubblicitario Obbligatorio") a restare sempre in Posizione 1 o 2. Attenzione: abusare dei Pin distrugge l'apprendimento AI.</div>
+  <div class="i">[Image showing a Responsive Search Ad UI with multiple headline inputs and the Pin feature]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Annunci e Asset > Clicca '+' > Annuncio adattabile della rete di ricerca. Passa il mouse su un Titolo e clicca sull'icona della puntina da disegno (Pin) per bloccarne la posizione.</div>
+</div>
+
+<div class="s">
+  <div class="t">63. L'importanza degli Asset (Ex Estensioni)</div>
+  <div class="p">Le Estensioni Annuncio sono state rinominate in "Asset". Avere asset configurati (Sitelink, Callout, Snippet Strutturati, Immagini) espande l'occupazione (Real Estate) dell'annuncio sulla SERP, spingendo in basso i competitor.</div>
+  <div class="p">Come visto nella formula dell'Ad Rank, avere Asset attinenti alza matematicamente il punteggio, abbassando il costo del clic. Inserite SEMPRE Sitelink con le descrizioni compilate, non solo i titoli.</div>
+  <div class="i">[Image contrasting a basic text ad with an enhanced ad utilizing image, sitelink, and structured snippet assets]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Menu a sinistra > Annunci e Asset > Asset. Clicca sul '+' per aggiungere un Asset Immagine e un Asset Sitelink, fondamentali per il CTR moderno.</div>
+</div>
+
+<div class="s">
+  <div class="t">64. Diagnostica delle Performance (Ad Strength)</div>
+  <div class="p">Google fornisce un indicatore chiamato "Efficacia dell'annuncio" (Ad Strength) che va da Incompleto a Eccellente. Valuta la varietà semantica fornita nei titoli e nelle descrizioni.</div>
+  <div class="p">Avere un Ad Strength "Eccellente" non garantisce conversioni, ma garantisce che l'annuncio partecipi al maggior numero di aste possibili per quel gruppo. Ripetere lo stesso titolo 10 volte bloccherà il valore su "Scarsa".</div>
+  <div class="i"></div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Durante la creazione o modifica di un RSA, osserva il quadrante in alto a destra "Efficacia dell'annuncio". Segui i suggerimenti testuali (es. "Aggiungi titoli più unici") per riempire il cerchio.</div>
+</div>
+
+<div class="s">
+  <div class="t">65. Rapporto Termini di Ricerca (Search Terms)</div>
+  <div class="p">Differenza tecnica fondamentale: Le "Parole Chiave" sono ciò su cui fai un'offerta. I "Termini di Ricerca" (Search Queries) sono ciò che l'utente ha materialmente digitato sulla tastiera.</div>
+  <div class="p">Il Rapporto Termini di Ricerca è il polso della campagna. Viene analizzato settimanalmente per identificare frasi spazzatura da negare e frasi super-performanti da estrarre e promuovere a keyword attive con budget dedicato.</div>
+  <div class="i">[Image comparing the concept of a broad targeted Keyword versus specific user Search Term inputs]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Parole chiave > Termini di Ricerca. Seleziona un termine irrilevante (es. "gratis") e clicca su "Aggiungi come parola chiave esclusa" per pulire il traffico.</div>
+</div>
+
+<div class="s">
+  <div class="t">66. Modificatori di Offerta Manuali (Bid Modifiers)</div>
+  <div class="p">Se non utilizzate lo Smart Bidding (es. siete in cPC Manuale o cPC Ottimizzato), potete applicare Modificatori di Offerta percentuali (+20%, -50%).</div>
+  <div class="p">Si applicano a Livello di Dispositivo (Es. Smartphone -100% per bloccarli), a Livello Geografico, a Livello Orario (Ad Scheduling) e a Livello di Pubblico. Con lo Smart Bidding attivo (tCPA/tROAS), questi modificatori manuali vengono per lo più ignorati dall'algoritmo, che si adatta autonomamente asta per asta.</div>
+  <div class="i"></div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Dispositivi (nel menu a sinistra). Seleziona la riga "Telefoni cellulari", clicca nella cella "Aggiustamento offerte" e inserisci "Riduci del 100%" per inibire il traffico mobile.</div>
+</div>
+
+<div class="s">
+  <div class="t">67. Pianificazione: Keyword Planner</div>
+  <div class="p">Prima di costruire l'architettura Hagakure, occorre stimare la domanda di mercato. Lo Strumento di Pianificazione delle Parole Chiave (Keyword Planner) estrae dati storici e stima i CPC (Min e Max) della SERP superiore.</div>
+  <div class="p">In account nuovi o che non hanno mai speso, il Keyword Planner mostrerà solo range larghi (es. 10k-100k ricerche). Negli account con storico di spesa, fornirà il volume di ricerca esatto e il trend annuale.</div>
+  <div class="i">[Image showing the Google Keyword Planner interface with search volume trends and CPC estimates]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Strumenti e Impostazioni > Pianificazione > Strumento di pianificazione delle parole chiave. Scegli "Individua nuove parole chiave" e inserisci 3 termini pertinenti al tuo business aziendale.</div>
+</div>
+
+<div class="s">
+  <div class="t">68. Diagnostica delle Performance: Preview Tool</div>
+  <div class="p">Mai cercare i vostri annunci aziendali fisicamente su Google.it. Altererete le statistiche (aumentando le impressioni senza cliccare) e rovinerete il CTR, abbassando il Punteggio di Qualità. In futuro Google smetterà anche di mostrarveli.</div>
+  <div class="p">Si utilizza sempre lo Strumento di Anteprima e Diagnosi Annunci (Ad Preview and Diagnosis). Simula una ricerca in qualsiasi località, dispositivo e lingua, e vi dice esattamente PERCHÉ il vostro annuncio non viene mostrato (es. Budget esaurito, Offerta troppo bassa).</div>
+  <div class="i">[Image showing the Ad Preview Tool successfully displaying an ad in a simulated search environment without registering a real impression]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Strumenti e Impostazioni > Pianificazione > Strumento di anteprima e diagnosi annunci. Inserisci una tua parola chiave e simula una ricerca da un'altra città.</div>
+</div>
+
+<div class="s">
+  <div class="t">69. L'Integrazione con GA4</div>
+  <div class="p">Un account Google Ads isolato è cieco su cosa accade dopo il click. L'integrazione obbligatoria è il Link con Google Analytics 4 (GA4).</div>
+  <div class="p">Collegando le piattaforme (grazie all'Auto-Tagging attivo), il Costo (Cost) di Ads fluisce in GA4 per analizzare il ROAS end-to-end, mentre i Segmenti di Pubblico complessi di GA4 (es. "Utenti alto coinvolgimento che non comprano") vengono esportati verso Google Ads per campagne di Remarketing aggressive.</div>
+  <div class="i">[Image showing a bidirectional data flow pipe connecting Google Ads to Google Analytics 4]</div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Strumenti e Impostazioni > Setup > Account Collegati (Linked Accounts). Cerca Google Analytics (GA4) e clicca su Dettagli > Collega, autorizzando la property corretta.</div>
+</div>
+
+<div class="s">
+  <div class="t">70. Conclusione: L'Asset Manager del Futuro</div>
+  <div class="p">Abbiamo attraversato 70 concetti avanzati. Da operatore che gestiva i CPC centesimo per centesimo, oggi l'Advertiser è un "Manager di Segnali". Il vostro compito è gestire Architetture (Hagakure), Target finanziari (tROAS/CPA), Asset Creativi di alta qualità e l'ingestione perfetta dei Dati di Conversione Offline (OCT).</div>
+  <div class="p">Tutto il resto, dal Bid alla singola impressione, è delegato in modo efficiente all'Intelligenza Artificiale (PMax, Smart Bidding). La vostra maestria sta nel fornire l'input perfetto e monitorare gli output tramite gli Esperimenti.</div>
+  <div class="i"></div>
+  <div class="l"><strong>[ LAB WALKTHROUGH ]</strong><br>Mettete in pratica. Tornate alla vostra Sandbox, strutturate una campagna e sperimentate le funzioni avanzate. La Masterclass si chiude qui, grazie per l'attenzione.</div>
+</div>
+
+<div class="nav">
+  <button class="btn" id="p" onclick="move(-1)">Indietro</button>
+  <div class="counter" id="c">1 / 70</div>
+  <button class="btn" id="n" onclick="move(1)">Avanti</button>
+</div>
+
+<script>
+  let idx = 0;
+  const slides = document.querySelectorAll('.s');
+  const tot = slides.length;
+  const prog = document.getElementById('prog');
+  const counter = document.getElementById('c');
+  const btnP = document.getElementById('p');
+  const btnN = document.getElementById('n');
+
+  function update() {
+    slides.forEach((s, i) => s.classList.toggle('active', i === idx));
+    counter.innerText = `${idx + 1} / ${tot}`;
+    prog.style.width = `${((idx + 1) / tot) * 100}%`;
+    btnP.disabled = idx === 0;
+    btnN.disabled = idx === tot - 1;
+  }
+
+  function move(step) {
+    if (idx + step >= 0 && idx + step < tot) {
+      idx += step;
+      update();
+    }
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') move(1);
+    if (e.key === 'ArrowLeft') move(-1);
+  });
+
+  update();
+</script>
+</body>
+</html>
