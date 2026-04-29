@@ -1,1 +1,966 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GA4 Masterclass - 70 Slides</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root { --bg-main: #f0f0f0; --white: #ffffff; --blue-muted: #4a6b8c; --sienna-muted: #a35a47; --text-dark: #1f2937; --text-gray: #4b5563; }
+        * { box-sizing: border-box; }
+        body { background-color: #cbd5e1; margin: 0; display: grid; place-items: center; min-height: 100vh; font-family: 'Inter', sans-serif; overflow: hidden; }
+        .slide-container { width: 1280px; height: 720px; background-color: var(--bg-main); display: none; flex-direction: column; padding: 40px 60px; position: relative; box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+        .slide-container.active { display: flex; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .slide-title { font-family: 'Poppins', sans-serif; font-size: 32px; font-weight: 700; color: var(--blue-muted); margin-bottom: 15px; border-left: 8px solid var(--sienna-muted); padding-left: 20px; }
+        h1 { font-family: 'Poppins', sans-serif; font-size: 54px; color: var(--blue-muted); margin: 0 0 10px 0; }
+        p, li { font-size: 17px; color: var(--text-gray); line-height: 1.5; margin-bottom: 10px;}
+        strong { color: var(--text-dark); }
+        .content-area { flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-start; overflow-y: auto; padding-right: 10px;}
+        .two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+        .lab-box { background: var(--white); border-left: 6px solid var(--sienna-muted); padding: 15px 20px; border-radius: 4px; margin-top: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .lab-box h4 { margin: 0 0 5px 0; color: var(--sienna-muted); font-size: 14px; text-transform: uppercase; }
+        .lab-box p { font-family: monospace; font-size: 14px; color: var(--text-dark); margin: 0; }
+        .tech-card { background: white; padding: 20px; border-radius: 8px; border: 1px solid #d1d5db; margin-bottom: 15px; }
+        .icon-large { font-size: 50px; color: var(--blue-muted); margin-bottom: 15px; }
+        .nav-bar { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 20px; align-items: center; background: rgba(255,255,255,0.95); padding: 10px 25px; border-radius: 50px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); z-index: 100;}
+        .btn-nav { background: var(--blue-muted); color: white; border: none; padding: 8px 20px; border-radius: 20px; cursor: pointer; font-weight: 600; font-size: 15px; }
+        .btn-nav:disabled { background: #94a3b8; cursor: not-allowed; }
+        .progress-bar { position: absolute; top: 0; left: 0; height: 6px; background: var(--sienna-muted); width: 0%; transition: width 0.3s; z-index: 100; }
+        .tag-day { position: absolute; top: 30px; right: 40px; background: var(--text-dark); color: white; padding: 5px 15px; border-radius: 4px; font-weight: bold; font-size: 14px; }
+        .img-placeholder { width: 100%; height: 200px; background: #e2e8f0; display: flex; align-items: center; justify-content: center; border-radius: 8px; color: #64748b; font-style: italic; margin-bottom: 15px;}
+    </style>
+</head>
+<body>
 
+<div class="progress-bar" id="progress"></div>
+
+<div class="slide-container active">
+    <div class="content-area" style="text-align: center; justify-content: center;">
+        <i class="fa-solid fa-chart-line icon-large"></i>
+        <h1>GA4 Complete Masterclass</h1>
+        <p style="font-size: 26px; color: var(--sienna-muted); font-weight: bold;">Da Zero a Esperti in 70 Slides</p>
+        <p style="margin-top: 30px;">Corso per Professionisti IT & Digital</p>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Setup</span>
+    <h2 class="slide-title">1. Attivazione dell'Account Demo</h2>
+    <div class="content-area">
+        <p>Per imparare ad usare Google Analytics 4 (GA4), è fondamentale fare pratica su dati reali. Google mette a disposizione un account dimostrativo pubblico basato sul <strong>Google Merchandise Store</strong>, un e-commerce reale gestito da Google.</p>
+        <p>Questo account ci permetterà di visualizzare volumi di traffico, vendite e comportamenti reali senza il rischio di danneggiare i dati aziendali.</p>
+        
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>1. Apri Google e cerca "Google Analytics Demo Account".<br>2. Clicca sul link ufficiale della guida Google.<br>3. Scorri fino alla sezione "Access the demo account" e clicca su "Google Analytics 4 property: Google Merchandise Store (web data)".</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Intro</span>
+    <h2 class="slide-title">2. L'Evoluzione: da UA a GA4</h2>
+    <div class="content-area">
+        <p>Il vecchio sistema, <strong>UA (Universal Analytics)</strong>, è stato ritirato. Si basava sul concetto di "Sessioni" (visite) e pagine viste. Questo modello era perfetto per i siti web dei primi anni 2000, ma inadeguato per le moderne applicazioni web e mobile.</p>
+        <p><strong>GA4 (Google Analytics 4)</strong> adotta un modello completamente nuovo, progettato per il tracciamento unificato (siti e app) e per rispettare le rigide normative sulla privacy, affidandosi all'Intelligenza Artificiale per colmare le lacune dei dati.</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Report > Home. Osserva l'interfaccia moderna: non troverai più i vecchi menu "Frequenza di rimbalzo" o "Sessioni" come metriche primarie, ma un focus sugli Eventi.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Core</span>
+    <h2 class="slide-title">3. Il Modello Event-Driven</h2>
+    <div class="content-area">
+        <p>La rivoluzione principale di GA4 è il modello <strong>Event-Driven</strong> (Guidato dagli eventi). Tutto ciò che l'utente fa è un evento.</p>
+        <p>Mentre in passato c'erano distinzioni tra "visualizzazioni di pagina", "click" o "transazioni", oggi una visualizzazione di pagina è semplicemente un evento chiamato <code>page_view</code>. Questa uniformità permette di analizzare qualsiasi interazione con la stessa logica di database.</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Report > Coinvolgimento > Eventi. Qui vedrai una lista piatta di tutte le azioni (page_view, scroll, click) trattate con lo stesso livello gerarchico.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Architettura</span>
+    <h2 class="slide-title">4. La Gerarchia dell'Account</h2>
+    <div class="content-area">
+        <p>La struttura organizzativa di Google Analytics è composta da livelli. L'<strong>Account</strong> è il contenitore principale (di solito l'azienda). Sotto l'Account c'è la <strong>Proprietà</strong> (Property), che rappresenta un brand o una linea di business specifica.</p>
+        <p>In GA4 è scomparso il livello "Viste" (Views) tipico di UA. Tutti i dati convergono nella Proprietà e vengono poi frammentati tramite filtri o esplorazioni avanzate.</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Clicca in basso a sinistra su "Amministrazione" (icona a forma di ingranaggio). Osserva le due colonne principali: "Account" a sinistra e "Proprietà" a destra. Le Viste non ci sono più.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Architettura</span>
+    <h2 class="slide-title">5. I Data Streams (Flussi di Dati)</h2>
+    <div class="content-area">
+        <p>I <strong>Data Streams</strong> (Flussi di Dati) sono i condotti attraverso i quali le informazioni viaggiano dal tuo sito o dalla tua app verso la Proprietà GA4.</p>
+        <p>Puoi avere un Flusso Web per il sito, un Flusso iOS per l'app Apple e un Flusso Android. I dati si fondono nella stessa Proprietà, permettendo di analizzare un utente che inizia un acquisto sull'app e lo conclude sul sito web.</p>
+        
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Amministrazione > Raccolta e modifica dei dati > Flussi di dati. Clicca sul flusso "Google Merchandise Store" per vederne i dettagli.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Setup</span>
+    <h2 class="slide-title">6. Il Measurement ID (ID Misurazione)</h2>
+    <div class="content-area">
+        <p>Per collegare il tuo sito web a GA4 hai bisogno di un codice identificativo. In passato si usava l'ID di monitoraggio (UA-XXXXX).</p>
+        <p>Oggi si utilizza il <strong>Measurement ID</strong> (ID Misurazione), che inizia sempre con la lettera <strong>G-</strong> (es. G-12345ABC). Questo codice va inserito nel codice sorgente del sito o all'interno di GTM (Google Tag Manager) per instradare i dati al giusto Flusso.</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Amministrazione > Flussi di dati > Seleziona il flusso Web. Troverai "ID Misurazione" in alto a destra, copiabile con un click.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Tracking</span>
+    <h2 class="slide-title">7. Enhanced Measurement (Misurazione Avanzata)</h2>
+    <div class="content-area">
+        <p>Storicamente, per tracciare un file scaricato o un video riprodotto, serviva l'intervento di un programmatore. GA4 introduce l'<strong>Enhanced Measurement</strong> (Misurazione Avanzata).</p>
+        <p>Questa funzione, attivabile con un semplice interruttore, inietta script automatici nel sito per tracciare comportamenti standard (scroll, download, ricerche) senza scrivere una riga di codice extra.</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Admin > Flussi di dati > Stream Web. Trova la sezione "Misurazione avanzata" e clicca sull'icona dell'ingranaggio per vedere quali azioni sono tracciate in automatico.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Tracking</span>
+    <h2 class="slide-title">8. Evento Page View e le SPA</h2>
+    <div class="content-area">
+        <p>L'evento <code>page_view</code> si attiva al caricamento della pagina. Tuttavia, i siti moderni spesso sono <strong>SPA (Single Page Application)</strong>: siti web (come React o Angular) che caricano la pagina una sola volta e poi cambiano dinamicamente i contenuti simulando la navigazione.</p>
+        <p>GA4 risolve il problema delle SPA integrando il tracciamento dei "Cambiamenti nella cronologia del browser", rilevando i cambi virtuali di URL e inviando eventi di pagina vista corretti.</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Admin > Flussi di dati > Misurazione Avanzata (ingranaggio) > Sotto "Visualizzazioni di pagina", verifica l'opzione "Cambiamenti nella cronologia del browser".</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Tracking</span>
+    <h2 class="slide-title">9. Tracciamento dello Scroll</h2>
+    <div class="content-area">
+        <p>L'evento <code>scroll</code> della Misurazione Avanzata indica se gli utenti consumano effettivamente il contenuto delle tue pagine, specialmente per blog lunghi o landing page commerciali.</p>
+        <p>Di default, GA4 spara questo evento <strong>solo quando l'utente raggiunge il 90%</strong> della profondità della pagina (verticalmente). Se serve tracciare il 25%, 50% o 75%, sarà necessario configurarlo manualmente tramite GTM.</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Report > Coinvolgimento > Eventi. Cerca l'evento "scroll" nella tabella. I numeri indicheranno quanti utenti hanno letto quasi per intero le pagine.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Tracking</span>
+    <h2 class="slide-title">10. Tracciamento dei Click in Uscita</h2>
+    <div class="content-area">
+        <p>L'evento <code>click</code> viene registrato in automatico <strong>solo quando l'utente clicca su un link che lo porta fuori dal tuo dominio</strong> (Outbound click).</p>
+        <p>Questo è fondamentale per capire se gli utenti abbandonano il sito cliccando su link ai tuoi social network o su banner di partner esterni affiliati.</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Report > Coinvolgimento > Eventi. Cerca "click". Clicca sul nome dell'evento per vedere eventuali parametri associati come "link_url" (URL di destinazione).</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Tracking</span>
+    <h2 class="slide-title">11. Site Search (Ricerca sul Sito)</h2>
+    <div class="content-area">
+        <p>Se il tuo sito ha una barra di ricerca, capire cosa cercano gli utenti è una miniera d'oro per la UX (User Experience) e per scoprire prodotti mancanti. L'evento generato si chiama <code>view_search_results</code>.</p>
+        <p>GA4 lo traccia automaticamente leggendo i parametri di query (Query Parameters) nell'URL, come "?q=scarpe" o "?s=maglietta". I parametri standard riconosciuti sono q, s, search, query, keyword.</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Admin > Flussi di dati > Misurazione Avanzata (ingranaggio) > Clicca su "Mostra impostazioni avanzate" sotto "Ricerca sul sito" per vedere i parametri letti da GA4.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Tracking</span>
+    <h2 class="slide-title">12. Video Engagement (Coinvolgimento Video)</h2>
+    <div class="content-area">
+        <p>Se hai video incorporati (embed) da <strong>YouTube</strong> sul tuo sito, GA4 traccia automaticamente l'interazione degli utenti con tre eventi distinti:</p>
+        <ul>
+            <li><code>video_start</code>: L'utente avvia il video.</li>
+            <li><code>video_progress</code>: L'utente raggiunge il 10%, 25%, 50%, 75% del video.</li>
+            <li><code>video_complete</code>: L'utente finisce di guardare il video.</li>
+        </ul>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Report > Coinvolgimento > Eventi. Digita "video" nella barra di ricerca della tabella per filtrare solo queste tre tipologie di interazioni video.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Tracking</span>
+    <h2 class="slide-title">13. Tracciamento Download dei File</h2>
+    <div class="content-area">
+        <p>Ogni volta che un utente clicca su un link che porta a un file con un'estensione comune, GA4 invia l'evento <code>file_download</code>. È utilissimo per siti B2B che offrono brochure, whitepaper o schede tecniche.</p>
+        <p>Estensioni supportate di default: pdf, xlsx, docx, txt, rtf, csv, exe, key, pps, ppt, pptx, 7z, pkg, rar, gz, zip, avi, mov, mp4, mpeg, wmv, midi, mp3, wav, wma.</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Report > Coinvolgimento > Eventi. Cerca l'evento "file_download". (Potrebbe non essere presente se non ci sono PDF nel Merchandise Store, ma la logica è questa).</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Tracking</span>
+    <h2 class="slide-title">14. Interazioni con i Moduli (Form)</h2>
+    <div class="content-area">
+        <p>Aggiunto di recente alla Misurazione Avanzata, questo strumento traccia quando l'utente inizia a compilare un modulo (<code>form_start</code>) e quando lo invia con successo (<code>form_submit</code>).</p>
+        <p>Attenzione per gli utenti IT: questa funzione a volte entra in conflitto con tecnologie come il Pixel di Meta, registrando falsi positivi se il sito usa script complessi per gestire i form. Spesso si preferisce disattivarla e usare GTM (Google Tag Manager).</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Admin > Flussi di dati > Misurazione Avanzata (ingranaggio) > Controlla la voce "Interazioni con i moduli".</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Identity</span>
+    <h2 class="slide-title">15. Identity Spaces (Spazi d'Identità)</h2>
+    <div class="content-area">
+        <p>Come fa GA4 a sapere se la visita dal cellulare al mattino e quella dal PC la sera appartengono alla stessa persona? Utilizza gli <strong>Identity Spaces</strong>, una cascata di metodi di riconoscimento.</p>
+        <p>Il sistema di base "Unisci e modella" (Blended) valuta l'utente in questo ordine gerarchico: 1. User-ID -> 2. Google Signals -> 3. Device ID (Cookie) -> 4. Modellazione Comportamentale (AI).</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Admin > Visualizzazione dati > Identità report. Osserva il metodo predefinito (selezionato su "Unisci e modella" o "Solo osservati").</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Identity</span>
+    <h2 class="slide-title">16. Il Device ID (ID Dispositivo)</h2>
+    <div class="content-area">
+        <p>Il <strong>Device ID</strong> è il livello base dell'identificazione. Su web, corrisponde al <strong>Client ID</strong>, ovvero un cookie salvato nel browser dell'utente (es. Chrome). Nelle app, corrisponde all'App-Instance ID.</p>
+        <p>Se l'utente naviga da PC e poi passa al tablet, il Device ID cambia. Questo è il motivo per cui il tracciamento basato solo sui cookie non è più sufficiente per calcolare l'utenza reale.</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>In GA4 vai su Esplora > Esplorazione Utente (User Explorer). L'ID lungo e alfanumerico che vedi nella prima colonna è l'identificatore del dispositivo (App-instance o Client ID).</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Identity</span>
+    <h2 class="slide-title">17. L'User-ID (ID Utente)</h2>
+    <div class="content-area">
+        <p>L'<strong>User-ID</strong> è il sistema più preciso di tracciamento (Cross-Device). Si attiva quando l'utente effettua il <strong>Login</strong> nel tuo sito o app.</p>
+        <p>Il team IT genera un codice univoco (spesso criptato per privacy) dal CRM aziendale e lo invia a GA4. Quando GA4 vede questo codice, collega immediatamente tutte le sessioni storiche associate ai dispositivi di quell'utente.</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Admin > Visualizzazione dati > Identità report. Nota come l'opzione "User-ID" sia sempre al vertice della piramide di affidabilità, perché fornita direttamente dai sistemi dell'azienda.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Identity</span>
+    <h2 class="slide-title">18. Google Signals (Segnali Google)</h2>
+    <div class="content-area">
+        <p>Quando non c'è il login (niente User-ID), GA4 prova a usare i <strong>Google Signals</strong>. Si tratta dei dati degli utenti che hanno effettuato l'accesso ai servizi Google (Gmail, Chrome) e hanno attivato la "Personalizzazione degli annunci".</p>
+        <p>Permette a GA4 di sapere che l'utente al PC e quello allo smartphone sono la stessa persona, fornendo anche dati aggregati e anonimi su Età, Sesso e Interessi dell'utente per le campagne di remarketing.</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Report > Utente > Attributi Utente > Dati Demografici. Questi grafici su Età e Interessi sono popolati grazie all'attivazione dei Google Signals.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Identity</span>
+    <h2 class="slide-title">19. Behavioral Modeling (Modellazione Comportamentale)</h2>
+    <div class="content-area">
+        <p>Cosa succede se l'utente rifiuta i cookie analitici tramite il banner della privacy? GA4, grazie alla <em>Consent Mode V2</em>, invia dei "Ping" (segnali vuoti e anonimi senza ID e senza IP).</p>
+        <p>La <strong>Modellazione Comportamentale</strong> sfrutta il Machine Learning (IA) per analizzare il comportamento degli utenti che <em>hanno</em> accettato i cookie, e stima matematicamente le azioni di quelli che li hanno rifiutati, offrendo report con volumi totali molto più realistici.</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Admin > Identità report. Osserva l'opzione "Unisci e modella": la parola "modella" si riferisce proprio all'intervento dell'IA per riempire i buchi lasciati dai cookie negati.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">UI</span>
+    <h2 class="slide-title">20. Panoramica dell'Interfaccia</h2>
+    <div class="content-area">
+        <p>L'interfaccia di GA4 si divide in grandi "Aree di lavoro" (Workspace), navigabili dal menu a sinistra:</p>
+        <ul>
+            <li><strong>Home:</strong> Dashboard di riepilogo con widget suggeriti dall'AI.</li>
+            <li><strong>Report:</strong> I rapporti standard pre-impostati su traffico ed e-commerce.</li>
+            <li><strong>Esplora:</strong> Lo strumento per analisi avanzate e personalizzate (tabelle pivot).</li>
+            <li><strong>Pubblicità:</strong> Dedicato al ROI, ROAS e ai percorsi di conversione.</li>
+        </ul>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Osserva il menu verticale a sinistra (Home, Report, Esplora, Pubblicità). Se la finestra è piccola, passa il mouse sulle icone per espandere le etichette.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">UI</span>
+    <h2 class="slide-title">21. Home & Insights (Approfondimenti)</h2>
+    <div class="content-area">
+        <p>La Home Page di GA4 è dinamica: impara da quali report visiti più spesso e adatta le schede visualizzate. La vera potenza sta negli <strong>Insights (Approfondimenti automatizzati)</strong>.</p>
+        <p>GA4 monitora costantemente i dati per identificare anomalie. Se le visite crollano del 30% all'improvviso, o se un prodotto inizia a vendere il doppio, l'AI genera una card di Insight per avvisarti del cambiamento.</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Clicca su "Home" in alto a sinistra. Scorri verso il basso fino a "Approfondimenti" (Insights) per vedere i suggerimenti generati automaticamente dall'algoritmo di Google.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">UI</span>
+    <h2 class="slide-title">22. Report in Tempo Reale (Realtime)</h2>
+    <div class="content-area">
+        <p>Il report Realtime monitora cosa stanno facendo gli utenti <strong>negli ultimi 30 minuti</strong>. È strutturato con una mappa interattiva globale.</p>
+        <p>È utile per campagne istantanee (es. il lancio di un tweet promozionale in diretta TV) e per verificare molto rapidamente se il codice di monitoraggio del sito sta funzionando (sebbene per debug si usi uno strumento diverso).</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Report > In tempo reale. Guarda la mappa con i "pallini" blu che indicano da quali città gli utenti si stanno connettendo al Merchandise Store in questo esatto momento.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">UI</span>
+    <h2 class="slide-title">23. Anatomia dello Spazio "Report"</h2>
+    <div class="content-area">
+        <p>La sezione Report organizza i dati seguendo il naturale ciclo di vita del cliente. Le "Raccolte" (Collections) predefinite sono:</p>
+        <ul>
+            <li><strong>Acquisizione:</strong> Come gli utenti trovano il sito (Sorgenti, Campagne).</li>
+            <li><strong>Coinvolgimento:</strong> Cosa fanno sul sito (Eventi, Pagine lette).</li>
+            <li><strong>Monetizzazione:</strong> Quanto spendono (Acquisti E-commerce, In-App).</li>
+            <li><strong>Fidelizzazione:</strong> Quanto spesso tornano nel tempo.</li>
+        </ul>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Clicca sull'icona "Report" (grafico a barre a sinistra) e osserva le raccolte Ciclo di vita e Utente elencate nel menu grigio espandibile.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">UI</span>
+    <h2 class="slide-title">24. La Libreria (Library)</h2>
+    <div class="content-area">
+        <p>Un grande limite di UA era la rigidità del menu laterale. GA4 introduce la <strong>Libreria (Library)</strong>, che permette agli utenti con permessi di amministratore di modificare completamente la navigazione.</p>
+        <p>Puoi nascondere report inutili (es. rimuovere "Monetizzazione" se hai un blog), creare nuove cartelle e pubblicare report personalizzati fatti su misura per i manager o il reparto marketing.</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Report > Guarda in fondo al menu grigio a sinistra: troverai l'icona della cartella "Libreria" (Library). Se l'account demo lo consente in sola lettura, aprila per vedere le raccolte pubblicate.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">UI</span>
+    <h2 class="slide-title">25. La Magia della Barra di Ricerca</h2>
+    <div class="content-area">
+        <p>La barra di ricerca in alto in GA4 non serve solo a cercare menu. Integra il NLP (Natural Language Processing). Puoi letteralmente fare domande all'Intelligenza Artificiale di Google Analytics.</p>
+        <p>Prova a chiedere "Quanti utenti da Roma la scorsa settimana?" oppure "Qual è l'entrate e-commerce di ieri?". Il sistema comprenderà la frase e aprirà direttamente un widget con la risposta.</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Clicca sulla barra di ricerca in alto (con la lente d'ingrandimento). Digita: "Entrate da dispositivo mobile scorsa settimana" e osserva la risposta rapida restituita dall'IA.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Metrics</span>
+    <h2 class="slide-title">26. Active Users (Utenti Attivi) vs Total Users</h2>
+    <div class="content-area">
+        <p>Nelle tabelle GA4 vedrai la colonna "Utenti". A differenza del passato, questa metrica non indica gli "Utenti Totali" (Total Users) ma gli <strong>Utenti Attivi (Active Users)</strong>.</p>
+        <p>Un utente è considerato "Attivo" se ha generato una Sessione Coinvolta o se GA4 registra l'evento <code>first_visit</code> o <code>engagement_time_msec</code> > 0 (la finestra del browser era in primo piano per almeno un istante). Elimina quindi i bot fantasma che caricano la pagina ma non interagiscono mai.</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Report > Acquisizione > Acquisizione traffico. Guarda l'intestazione della prima colonna metrica: si chiama semplicemente "Utenti", ma ora sai che si riferisce agli Utenti Attivi.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Metrics</span>
+    <h2 class="slide-title">27. Engaged Sessions (Sessioni Coinvolte)</h2>
+    <div class="content-area">
+        <p>Abbiamo introdotto un concetto rivoluzionario di GA4: la <strong>Sessione Coinvolta (Engaged Session)</strong>. È un parametro che definisce visite di qualità. Si attiva se accade almeno una di queste condizioni:</p>
+        <ul>
+            <li>La sessione dura più di 10 secondi (questo tempo è modificabile nelle impostazioni Admin fino a 60 secondi).</li>
+            <li>Si verifica un Evento Chiave (Conversione), come un acquisto o un download.</li>
+            <li>L'utente visualizza almeno 2 pagine o schermate distinte.</li>
+        </ul>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Report > Acquisizione > Acquisizione traffico. Trova la colonna "Sessioni coinvolte". Sono sempre meno delle "Sessioni" totali.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Metrics</span>
+    <h2 class="slide-title">28. Engagement Rate vs Bounce Rate</h2>
+    <div class="content-area">
+        <p>Il vecchio Frequenza di Rimbalzo (Bounce Rate) creava confusione. Se uno leggeva un articolo di 10 minuti ma non cliccava altro, era considerato un "rimbalzo" negativo. Assurdo per un blog!</p>
+        <p>GA4 introduce il <strong>Tasso di coinvolgimento (Engagement Rate)</strong>: la percentuale di sessioni che sono risultate "Coinvolte". <br>La Frequenza di Rimbalzo in GA4 esiste ancora, ma è calcolata al contrario: <code>Bounce Rate = 100% - Engagement Rate</code>.</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Report > Acquisizione > Acquisizione traffico. Osserva la colonna "Tasso di coinvolgimento". Se è del 60%, significa che la frequenza di rimbalzo è del 40%.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Metrics</span>
+    <h2 class="slide-title">29. Average Engagement Time</h2>
+    <div class="content-area">
+        <p>La metrica "Tempo medio di coinvolgimento" in GA4 è estremamente più precisa rispetto al vecchio "Tempo medio sulla pagina" di UA.</p>
+        <p>In UA, se chiudevi il sito prima di cambiare pagina, il tempo era zero. GA4 invece monitora l'evento di sistema <code>user_engagement</code>, calcolando costantemente i millisecondi in cui la scheda del tuo browser è stata effettivamente <strong>attiva e in primo piano</strong> sul dispositivo dell'utente.</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Report > Coinvolgimento > Pagine e schermate. Controlla la colonna "Tempo di coinvolgimento medio" per vedere quali articoli trattengono l'attenzione più a lungo.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Eventi</span>
+    <h2 class="slide-title">30. La Struttura Tecnica degli Eventi</h2>
+    <div class="content-area">
+        <p>Dal punto di vista informatico (JSON inviato al server), un evento GA4 è composto da un <strong>Nome Evento</strong> (Event Name) e da una serie di coppie chiave-valore chiamate <strong>Parametri</strong>.</p>
+        <p>Esempio evento click su un prodotto: <br>
+           <code>Nome: select_item</code><br>
+           <code>Parametri: { item_id: "123", item_name: "Sneakers Bianche", price: "80.00" }</code></p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Admin > Visualizzazione Dati > Eventi. I nomi nella prima colonna sono gli "Event Name" esatti sparati dal codice.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Eventi</span>
+    <h2 class="slide-title">31. Parametri di Sistema (Automatici)</h2>
+    <div class="content-area">
+        <p>Oltre ai parametri che aggiungi manualmente, GA4 attacca ad ogni singolo evento dei <strong>parametri di sistema invisibili</strong> che gli servono per compilare i report. Alcuni dei più importanti sono:</p>
+        <ul>
+            <li><code>page_location</code>: l'URL in cui si è verificato l'evento.</li>
+            <li><code>page_referrer</code>: l'URL della pagina precedente.</li>
+            <li><code>session_id</code>: un numero identificativo per raggruppare gli eventi della stessa visita.</li>
+        </ul>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Report > Coinvolgimento > Eventi. Clicca sull'evento "page_view". Nella pagina di dettaglio, troverai schede come "Titolo pagina" e "Posizione", alimentate proprio da questi parametri nascosti.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Admin</span>
+    <h2 class="slide-title">32. Dimensioni Personalizzate (Custom Dimensions)</h2>
+    <div class="content-area">
+        <p>Se invii a GA4 un parametro inventato da te (es. <code>tipo_abbonamento: "premium"</code>), GA4 lo riceve, ma <strong>NON LO MOSTRA NEI REPORT</strong> finché non lo registri.</p>
+        <p>Per vederlo, l'amministratore IT deve creare una <strong>Dimensione Personalizzata</strong> (Custom Dimension). Questa operazione dice a GA4: "Prendi questo parametro tecnico dal database e fallo diventare una colonna leggibile nei report".</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Admin > Visualizzazione dati > Definizioni personalizzate. Guarda la scheda "Dimensioni personalizzate": mostra i nomi visibili all'utente e i relativi "Parametri evento" tecnici che le alimentano.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Admin</span>
+    <h2 class="slide-title">33. Metriche Personalizzate (Custom Metrics)</h2>
+    <div class="content-area">
+        <p>Se le Dimensioni sono dati testuali (Colori, Categorie, Testi), le <strong>Metriche</strong> sono sempre numeri (Quantità, Prezzi, Punteggi).</p>
+        <p>Se invii un parametro chiamato <code>punteggio_gioco: 50</code>, devi registrarlo come Metrica Personalizzata (Custom Metric), specificando l'Unità di misura (Standard o Valuta) per permettere a GA4 di fare le somme e le medie nelle tabelle.</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Admin > Visualizzazione dati > Definizioni personalizzate > Clicca sulla tab <strong>Metriche personalizzate</strong> per vedere quali parametri numerici sono stati esposti per i report.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Admin</span>
+    <h2 class="slide-title">34. Proprietà Utente (User Properties)</h2>
+    <div class="content-area">
+        <p>I parametri che descrivono caratteristiche <em>stabili</em> della persona (e non di un evento) si chiamano <strong>User Properties</strong>. Esempi: <code>livello_fedelta = "Gold"</code> o <code>ruolo = "B2B_Manager"</code>.</p>
+        <p>Queste proprietà restano appiccicate all'identificativo dell'utente per tutte le sessioni future e sono fondamentali per creare segmenti di pubblico (Audiences) per Google Ads.</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>In Esplora (Esplorazioni), quando crei un Segmento, puoi usare le "Proprietà utente" come filtri demografici personalizzati (se configurati nell'account).</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Conversioni</span>
+    <h2 class="slide-title">35. Eventi Chiave (Key Events / Conversioni)</h2>
+    <div class="content-area">
+        <p>Storicamente conosciute come "Obiettivi" e poi "Conversioni", oggi si chiamano <strong>Eventi Chiave (Key Events)</strong>. Sono gli eventi vitali per il ROI (Return On Investment) dell'azienda: acquisti, lead, registrazioni.</p>
+        <p>La configurazione è banalissima: nell'elenco degli eventi in Admin, basta accendere l'interruttore "Contrassegna come evento chiave". L'evento "purchase" (acquisto) è un evento chiave di sistema e non può essere spento.</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Admin > Visualizzazione dati > <strong>Eventi chiave</strong>. Osserva l'elenco delle azioni considerate critiche per il successo del Google Merchandise Store.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Attribuzione</span>
+    <h2 class="slide-title">36. Cos'è l'Attribuzione?</h2>
+    <div class="content-area">
+        <p>Un utente vede una tua Ads su Facebook (Lunedì), poi cerca il tuo sito su Google e clicca un link SEO (Mercoledì), infine digita il tuo sito diretto e compra (Venerdì). A chi diamo il merito (credito) della vendita?</p>
+        <p>Questo dilemma si risolve tramite i <strong>Modelli di Attribuzione</strong> (Attribution Models). Stabiliscono le regole matematiche per dividere il valore della conversione tra i vari canali che hanno partecipato al Customer Journey.</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Admin > Visualizzazione dati > Impostazioni di attribuzione. Qui l'amministratore sceglie il modello matematico che governerà l'intera Proprietà GA4.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Attribuzione</span>
+    <h2 class="slide-title">37. Data-Driven Attribution (DDA)</h2>
+    <div class="content-area">
+        <p>Il modello predefinito in GA4 è l'<strong>Attribuzione basata sui dati (Data-Driven o DDA)</strong>. Abbandona le regole fisse (come "Ultimo click") e usa l'Intelligenza Artificiale.</p>
+        <p>L'AI confronta i percorsi degli utenti che hanno acquistato con quelli che NON hanno acquistato per calcolare l'effettivo "peso" e l'impatto di un annuncio o di un clic SEO sul risultato finale, distribuendo il merito in modo dinamico e probabilistico.</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Admin > Impostazioni di attribuzione. Verifica che il menu a tendina "Modello di attribuzione report" sia impostato su "Basata sui dati" (Data-driven).</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Acquisizione</span>
+    <h2 class="slide-title">38. Il report "Acquisizione Utenti" (First Touch)</h2>
+    <div class="content-area">
+        <p>Questo report risponde alla domanda: <em>"Come ci ha scoperto per la PRIMISSIMA volta l'utente?"</em>.</p>
+        <p>Se un utente ci scopre tramite una campagna Instagram, e poi torna altre dieci volte da traffico diretto, nel report "Acquisizione utenti", tutto il valore di questo utente e i suoi acquisti futuri saranno assegnati per sempre a Instagram (modello First User / Primo utente).</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Report > Acquisizione > Acquisizione utenti. Le dimensioni nella prima colonna inizieranno sempre con la parola "Primo utente / ..." (es. Mezzo primo utente).</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Acquisizione</span>
+    <h2 class="slide-title">39. Il report "Acquisizione Traffico" (Session Touch)</h2>
+    <div class="content-area">
+        <p>A differenza del report Utenti, "Acquisizione Traffico" risponde alla domanda: <em>"Cosa ha spinto l'utente a visitare il sito QUESTA specifica volta?"</em>.</p>
+        <p>È focalizzato sulle Sessioni. Se un cliente storico oggi clicca su una Newsletter, la sessione e le relative vendite odierne verranno attribuite alla dimensione "Email" tramite la dimensione chiamata "Mezzo della Sessione".</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Report > Acquisizione > Acquisizione traffico. Le dimensioni nella prima colonna iniziano sempre con "Sessione / ..." (es. Mezzo della sessione).</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Acquisizione</span>
+    <h2 class="slide-title">40. Le dimensioni Sorgente e Mezzo</h2>
+    <div class="content-area">
+        <p>Il fondamento dell'analisi dell'acquisizione è la coppia <strong>Sorgente / Mezzo</strong> (Source / Medium).</p>
+        <ul>
+            <li><strong>Sorgente:</strong> È il nome dell'entità precisa da cui arriva il traffico (es. <em>google, facebook.com, newsletter_agosto</em>).</li>
+            <li><strong>Mezzo:</strong> È la "categoria" generale del canale (es. <em>organic</em> per i risultati non pagati, <em>cpc</em> per il costo per clic, <em>referral</em> per i link da altri siti).</li>
+        </ul>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Report > Acquisizione > Acquisizione traffico. Clicca sulla freccia sopra la prima colonna per cambiare la dimensione primaria da "Raggruppamento canali" a "Sorgente/mezzo della sessione".</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Acquisizione</span>
+    <h2 class="slide-title">41. I Parametri UTM (Urchin Tracking Module)</h2>
+    <div class="content-area">
+        <p>Per le campagne esterne (Email, Social, Banner), GA4 non può sapere da dove arriva l'utente senza un aiuto. Qui intervengono gli <strong>UTM</strong>: codici testuali accodati all'URL della tua pagina (es. <code>?utm_source=facebook&utm_medium=cpc&utm_campaign=promo_estate</code>).</p>
+        <p>Quando l'utente clicca, GA4 legge questi parametri nell'URL e popola perfettamente i campi Sorgente, Mezzo e Campagna nei report, superando i blocchi privacy dei browser.</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Report > Acquisizione > Acquisizione traffico. Cambia la colonna primaria in "Campagna della sessione" per vedere i valori generati dal parametro utm_campaign.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Acquisizione</span>
+    <h2 class="slide-title">42. Default Channel Grouping (Raggruppamento Canali)</h2>
+    <div class="content-area">
+        <p>Analizzare migliaia di "Sorgenti" è confusionario. GA4 raggruppa le combinazioni di Sorgente e Mezzo in "Macrocategorie" pulite, grazie al <strong>Default Channel Grouping</strong> (Raggruppamento canali predefinito).</p>
+        <p>Ad esempio, le visite con mezzo "organic" e sorgente "google" o "bing" finiscono tutte nel "Organic Search". Le visite con mezzo "cpc" finiscono nel "Paid Search", ecc.</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Report > Acquisizione > Acquisizione traffico. Il report si apre sempre con il "Raggruppamento canali" (Organic Search, Direct, Cross-network) come visualizzazione standard.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Admin</span>
+    <h2 class="slide-title">43. Custom Channel Grouping</h2>
+    <div class="content-area">
+        <p>Se le regole predefinite di Google non si adattano al tuo business (ad esempio, fai campagne di Influencer Marketing e vuoi un canale "Influencer"), l'amministratore può creare <strong>Gruppi di Canali Personalizzati</strong> (Custom Channel Grouping).</p>
+        <p>Si imposta una regola logica (es. "Se utm_medium contiene 'influencer' => Gruppo Influencer"). Il grande vantaggio in GA4 è che questi gruppi sono retroattivi e modificano l'organizzazione dei dati storici senza distruggerli.</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Admin > Visualizzazione dati > Gruppi di canali (Channel groups). Guarda se sono stati creati raggruppamenti extra oltre a quello di default.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Acquisizione</span>
+    <h2 class="slide-title">44. Traffico Diretto (Direct Traffic)</h2>
+    <div class="content-area">
+        <p>Nei report vedrai molta voce "Direct". In teoria, significa che l'utente ha digitato l'URL nel browser o ha usato i preferiti. In pratica, "Direct" in GA4 significa <strong>"Traffico senza referrer conosciuto"</strong> (Origine Sconosciuta).</p>
+        <p>Spesso il Direct si gonfia per colpa del traffico dalle App (es. click su link in WhatsApp, Telegram o app email), dove il dato della provenienza viene perso per motivi di sicurezza dell'OS mobile (Dark Social).</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Report > Acquisizione > Acquisizione traffico. Noterai che il raggruppamento "Direct" è quasi sempre al vertice o al secondo posto delle sorgenti di traffico principali.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Admin</span>
+    <h2 class="slide-title">45. Cross-Domain Tracking (Tracciamento Multidominio)</h2>
+    <div class="content-area">
+        <p>Se il tuo customer journey attraversa domini diversi (es. il blog su <code>brand.com</code> e il carrello su <code>shop.com</code>), normalmente il cookie si spezzerebbe creando 2 utenti distinti in GA4, gonfiando il traffico Direct e perdendo l'attribuzione della campagna.</p>
+        <p>Configurando il <strong>Cross-Domain Tracking</strong>, GA4 passa il cookie nel momento del click (appendendo il parametro `_gl` all'URL), mantenendo viva la stessa sessione utente tra i due domini (che devono avere lo stesso Data Stream ID).</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Admin > Flussi di dati > Stream Web > Configura le impostazioni dei tag > Clicca su "Configura i tuoi domini". Lì si elencano i domini (es. shop.com, brand.com) uniti dal cross-domain.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Engagement</span>
+    <h2 class="slide-title">46. Landing Pages (Pagine di Destinazione)</h2>
+    <div class="content-area">
+        <p>La <strong>Landing Page</strong> è la primissima pagina che l'utente visualizza quando inizia la sua Sessione sul sito. Analizzare queste pagine è vitale per ottimizzare le campagne Ads e la SEO, in quanto rappresentano il "biglietto da visita" dell'azienda.</p>
+        <p>Una buona Landing Page deve generare un alto Tasso di Coinvolgimento (Engagement Rate) ed Eventi Chiave, minimizzando l'abbandono precoce.</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Report > Coinvolgimento > <strong>Pagina di destinazione</strong> (Landing page). La metrica chiave da osservare qui per valutare la pagina è "Sessioni" e "Tasso di coinvolgimento".</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Engagement</span>
+    <h2 class="slide-title">47. Pagine e Schermate (Pages and Screens)</h2>
+    <div class="content-area">
+        <p>Mentre la Landing Page si concentra sull'ingresso, il report <strong>Pagine e schermate</strong> mostra le performance di tutte le pagine visitate in totale dagli utenti durante il loro girovagare nel sito.</p>
+        <p>La metrica dominante è "Visualizzazioni" (quante volte la pagina è stata caricata). Se hai collegato un'App mobile, vedrai un mix di Titoli Pagina (Web) e Nomi Schermata (App).</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Report > Coinvolgimento > <strong>Pagine e schermate</strong>. Analizza la colonna "Tempo di coinvolgimento medio" per capire quali contenuti testuali "catturano" di più i lettori.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Monetization</span>
+    <h2 class="slide-title">48. Il Tracking E-commerce</h2>
+    <div class="content-area">
+        <p>Per i negozi online, implementare l'oggetto `ecommerce` di GA4 (tramite codice (dataLayer) e Google Tag Manager) sblocca report finanziari potentissimi.</p>
+        <p>Si traccia l'intero imbuto d'acquisto (Funnel): <code>view_item</code> (visualizzazione prodotto), <code>add_to_cart</code> (aggiunta al carrello), <code>begin_checkout</code> (inizio pagamento), <code>add_shipping_info</code> (dati spedizione) e il fondamentale <code>purchase</code> (acquisto).</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Report > Monetizzazione > <strong>Acquisti e-commerce</strong>. Analizza le entrate divise per "Nome articolo" o "Categoria articolo".</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Monetization</span>
+    <h2 class="slide-title">49. Il Percorso di Acquisto dell'Utente</h2>
+    <div class="content-area">
+        <p>Il report "Percorso d'acquisto dell'utente" (User Purchase Journey) prende in automatico gli eventi e-commerce standard e crea un grafico a cascata (Funnel). Serve a scoprire dove "cadono" i clienti.</p>
+        <p>Se vedi un calo enorme (Drop-off) tra l'inizio del checkout e l'inserimento dei dati di spedizione, potresti avere problemi tecnici nel form, o costi di consegna percepiti come troppo alti.</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Report > Monetizzazione > <strong>Percorso d'acquisto dell'utente</strong>. Guarda le barre blu per visualizzare quanti utenti procedono di step in step fino alla conversione finale.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Monetization</span>
+    <h2 class="slide-title">50. Metriche E-commerce e ARPPU</h2>
+    <div class="content-area">
+        <p>Oltre alle "Entrate Totali", nei report troverai metriche avanzate come:</p>
+        <ul>
+            <li><strong>Entrate medie degli acquisti (ARPU - Average Revenue Per User):</strong> Calcola la media di quanto spende un utente totale (anche quelli che non comprano niente).</li>
+            <li><strong>ARPPU (Average Revenue Per Paying User):</strong> Calcola la media di spesa <em>solo</em> su coloro che hanno effettivamente aperto il portafoglio.</li>
+        </ul>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Report > Monetizzazione > Panoramica della monetizzazione. Troverai le widget riassuntive che mostrano queste metriche di Revenue aggregate per periodo.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Fidelizzazione</span>
+    <h2 class="slide-title">51. Fidelizzazione (Retention)</h2>
+    <div class="content-area">
+        <p>Il report <strong>Fidelizzazione</strong> si concentra sui clienti di ritorno. In un'epoca dove acquisire nuovi clienti (CAC - Customer Acquisition Cost) è costoso, misurare quanti tornano è essenziale per la redditività aziendale.</p>
+        <p>Qui troviamo grafici sul coinvolgimento utente nei primi 42 giorni dall'acquisizione, calcolando percentualmente l'abbandono (Churn Rate) del nostro pubblico nel tempo.</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Report > <strong>Fidelizzazione</strong>. Osserva il grafico "Fidelizzazione utenti per coorte". Le percentuali indicheranno quanti utenti tornano nei giorni 1, 7 e 30 successivi alla prima visita.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Esplora</span>
+    <h2 class="slide-title">52. Workspace "Esplora" (Explorations)</h2>
+    <div class="content-area">
+        <p>Quando i Report standard non bastano, entriamo nell'area <strong>Esplora (Esplorazioni)</strong>. Questo modulo avanzato offre la potenza di analisi tipica degli analisti dati.</p>
+        <p>Costruisci le tue tabelle partendo da zero o usando "Modelli" (Templates), trascinando letteralmente (Drag & Drop) Dimensioni e Metriche nella tela come faresti con una Tabella Pivot in Microsoft Excel.</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Menu a sinistra > Clicca su <strong>Esplora</strong>. Osserva in alto la "Galleria modelli" (Formato libero, Canalizzazione, Percorso, Sovrapposizione segmenti).</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Esplora</span>
+    <h2 class="slide-title">53. Metodologia: Segmenti, Dimensioni, Metriche</h2>
+    <div class="content-area">
+        <p>Per creare un'esplorazione, devi padroneggiare la colonna "Variabili" a sinistra:</p>
+        <ul>
+            <li><strong>Segmenti:</strong> Sottoinsiemi di utenti filtrati da analizzare (es. "Solo utenti Mobile").</li>
+            <li><strong>Dimensioni:</strong> Le righe testuali della tua analisi (es. Città, Dispositivo, Nome Evento).</li>
+            <li><strong>Metriche:</strong> I numeri calcolati (es. Sessioni, Entrate, Tasso Coinvolgimento).</li>
+        </ul>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>In Esplora, clicca su "Vuoto" (Blank). Nella prima colonna "Variabili" a sinistra, clicca il "+" accanto a Dimensioni e cerca "Paese". Poi clicca "+" su Metriche e cerca "Utenti attivi".</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Esplora</span>
+    <h2 class="slide-title">54. Formato Libero (Free Form)</h2>
+    <div class="content-area">
+        <p>L'esplorazione a <strong>Formato Libero</strong> è la più versatile. Permette di creare tabelle con righe e colonne nidificate. </p>
+        <p>Supporta l'opzione "Rilevamento anomalie" (Anomaly Detection): attivando un interruttore per i grafici a linee storici, l'Intelligenza Artificiale disegnerà una fascia azzurra di tolleranza statistica, evidenziando i picchi positivi o negativi imprevisti che escono dalla norma.</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>In Esplora, seleziona il modello "Formato libero". Trascina la Dimensione "Paese" nella sezione Righe (Impostazioni scheda) e la metrica "Utenti attivi" nella sezione Valori.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Esplora</span>
+    <h2 class="slide-title">55. Canalizzazione (Funnel Exploration)</h2>
+    <div class="content-area">
+        <p>Il Funnel E-commerce visto prima era standardizzato. Con l'<strong>Esplorazione Canalizzazione</strong> puoi costruire un "imbuto" partendo da *qualsiasi* evento tu voglia.</p>
+        <p>Es: Step 1 "Clicca su Promozione X" -> Step 2 "Iscrizione Newsletter" -> Step 3 "Riceve Sconto". Misurerai esattamente quanti utenti si perdono tra un gradino e l'altro del tuo processo personalizzato.</p>
+        
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Esplora > <strong>Esplorazione canalizzazione</strong>. Nella seconda colonna (Impostazioni scheda), scorri fino a "Passaggi" e clicca la matita per modificare e creare i tuoi step sequenziali.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Esplora</span>
+    <h2 class="slide-title">56. Percorso (Path Exploration)</h2>
+    <div class="content-area">
+        <p>L'<strong>Esplorazione Percorso</strong> mostra un diagramma ad albero interattivo basato sui comportamenti reali. Se il Funnel risponde alla domanda "Quanti passano dal punto A al punto B?", il Pathing risponde a: "Da A, quali mille percorsi diversi intraprendono gli utenti?".</p>
+        <p>Utile la funzione <em>Reverse Pathing</em>: parti impostando il nodo di Fine su "Acquisto" (purchase) e osserva a ritroso l'ordine esatto delle pagine visitate prima di pagare.</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Esplora > <strong>Esplorazione percorso</strong>. Clicca sul nodo "Inizia da capo" in alto a destra. Poi seleziona "Evento" e scegli "page_view" per osservare come si ramifica il traffico sulla Home.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Esplora</span>
+    <h2 class="slide-title">57. Sovrapposizione Segmenti (Segment Overlap)</h2>
+    <div class="content-area">
+        <p>L'analisi di <strong>Sovrapposizione dei Segmenti</strong> usa grafici a diagramma di Venn (cerchi sovrapposti) per mostrare l'intersezione tra nicchie di pubblico differenti.</p>
+        <p>Se crei il Segmento "Traffico Mobile" (cerchio blu) e il Segmento "Utenti che hanno Acquistato" (cerchio rosso), l'area dove i due cerchi si fondono mostra il volume e il tasso di conversione specifico degli acquirenti da smartphone, svelando nicchie profittevoli per Google Ads.</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Esplora > <strong>Sovrapposizione segmenti</strong>. Trascina due o tre Segmenti dalla prima colonna "Variabili" nella sezione "Confronti tra segmenti" della seconda colonna.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Esplora</span>
+    <h2 class="slide-title">58. Analisi di Coorte (Cohort Analysis)</h2>
+    <div class="content-area">
+        <p>Una <strong>Coorte</strong> è un gruppo di utenti accomunati da uno stesso evento iniziale in un lasso di tempo (es. "Tutti gli iscritti di Gennaio"). L'Analisi di Coorte monitora questo gruppo specifico nel tempo per valutare il Lifetime Value (LTV) o l'abbandono progressivo.</p>
+        <p>È cruciale per capire se una promozione natalizia (Coorte di Dicembre) porta utenti "Mordi e fuggi", oppure utenti fedeli che continuano a generare entrate nei mesi di Febbraio, Marzo e Aprile successivi.</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Esplora > <strong>Esplorazione Coorte</strong>. Osserva la tabella a triangolo termico: i colori più scuri (solitamente la prima settimana) indicano il picco di retention.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Pubblico</span>
+    <h2 class="slide-title">59. Segmenti vs Segmenti di Pubblico (Audiences)</h2>
+    <div class="content-area">
+        <p>È un errore comune confonderli. Un <strong>Segmento</strong> è un filtro retroattivo "temporaneo" applicabile solo nel modulo Esplora. Agisce in tempo reale sui dati storici.</p>
+        <p>Un <strong>Segmento di Pubblico (Audience)</strong> è una lista permanente creata nelle impostazioni Admin. Dal momento in cui lo crei, inizia ad accumulare gli utenti e popola un bacino pronto per essere esportato su Google Ads per il Retargeting. Le Audience non analizzano dati pregressi prima della loro creazione.</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Admin > Visualizzazione dati > <strong>Segmenti di pubblico</strong>. Osserva l'elenco (es. "Purchasers", "All Users") e le relative dimensioni del bacino destinate al remarketing pubblicitario.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Admin</span>
+    <h2 class="slide-title">60. Filtri Dati (Data Filters)</h2>
+    <div class="content-area">
+        <p>I report non hanno valore se inquinati dal traffico di sviluppo informatico, o dalle navigazioni continue dei dipendenti aziendali. Intervengono i <strong>Filtri Dati</strong>.</p>
+        <p>Configurando l'indirizzo IP aziendale, l'amministratore imposta un Filtro Dati in stato "Attivo". In questo modo, GA4 blocca a monte il traffico dei dipendenti escludendolo in modo irreversibile dall'elaborazione dei report, garantendo dati puliti sul mercato reale.</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Admin > Raccolta e modifica dei dati > <strong>Filtri dati</strong>. Troverai un filtro predefinito chiamato "Internal Traffic" (Traffico Interno).</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Integration</span>
+    <h2 class="slide-title">61. Collegamento a Google Ads</h2>
+    <div class="content-area">
+        <p>Senza il collegamento (Link) tra GA4 e Google Ads, l'ecosistema digitale aziendale è zoppo. Collegare questi due potenti strumenti permette tre azioni vitali:</p>
+        <ol>
+            <li>Importare i costi delle campagne (Click e Impression) direttamente nei report di GA4.</li>
+            <li>Esportare le Audience predittive da GA4 a Google Ads per il targeting.</li>
+            <li>Importare gli "Eventi Chiave" (Conversioni) su Google Ads per addestrare i suoi algoritmi di Smart Bidding (CPA o ROAS target).</li>
+        </ol>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Admin > Collegamenti tra prodotti > <strong>Collegamenti Google Ads</strong>. Controlla il collegamento stabilito dal Google Merchandise Store con l'account Ads aziendale.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Integration</span>
+    <h2 class="slide-title">62. Collegamento a Search Console (GSC)</h2>
+    <div class="content-area">
+        <p>GA4 traccia ottimamente cosa succede DENTRO il tuo sito. La <strong>Google Search Console (GSC)</strong> analizza cosa succede SU GOOGLE prima che l'utente clicchi (posizionamenti SEO e CTR organico).</p>
+        <p>Collegando i due account, GA4 importa le metriche di impression e le Query esatte cercate dagli utenti sul motore di ricerca ("Query di ricerca organica di Google"), mettendole a fianco dei tassi di conversione nel sito.</p>
+        
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Admin > Collegamenti tra prodotti > <strong>Collegamenti Search Console</strong>. Successivamente troverai il report dedicato in: Report > Search Console (se pubblicato in libreria).</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Integration</span>
+    <h2 class="slide-title">63. L'esportazione verso BigQuery (BQ)</h2>
+    <div class="content-area">
+        <p>Nei report e nelle Esplorazioni, GA4 spesso elabora "Campionamenti" (esamina solo una percentuale dei dati per fare prima sui grandi volumi). La soluzione definitiva è <strong>BigQuery (BQ)</strong>.</p>
+        <p>BigQuery è il Data Warehouse cloud di Google. GA4 permette un'integrazione gratuita (l'uso dei server cloud e' a consumo) che scarica giorno per giorno i <strong>dati grezzi (Raw Data) non aggregati evento per evento</strong>. Indispensabile per data analyst esperti o per inviare i dati a tool di Data Visualization come Looker Studio.</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Admin > Collegamenti tra prodotti > <strong>Collegamenti a BigQuery</strong>. Nota tecnica: l'esportazione può avvenire una volta al giorno o in "Streaming" semi-immediato (con un piccolo costo Cloud).</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Privacy</span>
+    <h2 class="slide-title">64. L'importanza del Measurement Protocol API</h2>
+    <div class="content-area">
+        <p>Cosa fai se un abbonamento si rinnova in automatico da un server (es. addebito su carta tra 1 mese senza browser aperto), o se l'utente compra in un negozio fisico con tessera fedeltà?</p>
+        <p>Non c'è javascript da caricare in quei casi. Usi il <strong>Measurement Protocol (API)</strong>: istruzioni HTTP inviate direttamente dai server aziendali (Backend) ai server di GA4. Sblocca la misurazione O2O (Online-To-Offline).</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Admin > Flussi di Dati > Seleziona flusso web > Segreti API di Measurement Protocol. L'IT deve creare qui una chiave segreta per autorizzare i server aziendali a spedire dati a GA4.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Privacy</span>
+    <h2 class="slide-title">65. La Consent Mode V2</h2>
+    <div class="content-area">
+        <p>Obbligatoria dal 2024 per le normative EU del Digital Markets Act (DMA). La <strong>Consent Mode V2</strong> agisce da intermediario tra il banner dei cookie del tuo sito e Google Analytics.</p>
+        <p>Invia a GA4 due nuovi segnali chiave: <code>ad_user_data</code> (L'utente acconsente al passaggio dei propri dati alle piattaforme pubblicitarie per tracciare le conversioni?) e <code>ad_personalization</code> (Acconsente al remarketing mirato?). In assenza di questo "via libera", GA4 oscura la condivisione per tutelarti legalmente.</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Admin > Raccolta e modifica dati > Raccolta dati > Controlla la voce "Impostazioni di consenso" per verificare l'abilitazione e l'adozione tecnica sul tuo dominio.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Privacy</span>
+    <h2 class="slide-title">66. Data Redaction (Oscuramento dei dati PII)</h2>
+    <div class="content-area">
+        <p>Google Analytics ha una regola durissima: non puoi MAI inviare PII (Personally Identifiable Information - Informazioni Personali Identificabili come Indirizzi Email o Nomi in chiaro) ai suoi server. Può causare la cancellazione dell'intero account GA4.</p>
+        <p>Spesso questo accadeva per errore, quando i siti passavano le mail nella barra degli URL dopo una registrazione (es. <code>?email=nome@gmail.com</code>). In GA4, tramite la <strong>Data Redaction</strong>, il sistema maschera automaticamente i pattern tipici delle email e li sostituisce con [redacted] prima dell'invio ai server, prevenendo il disastro.</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Admin > Flussi di Dati > Seleziona flusso web > Trova l'opzione "Oscuramento dei dati" (Data Redaction) attivata per le "Email" e "Parametri di ricerca dell'URL".</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Debug</span>
+    <h2 class="slide-title">67. Lo strumento DebugView</h2>
+    <div class="content-area">
+        <p>Come fai a sapere se i tuoi eventi configurati in GTM (Google Tag Manager) funzionano prima di lanciare il sito? Utilizzi la modalità <strong>DebugView</strong>.</p>
+        <p>È un cruscotto speciale che isola il traffico del tuo specifico browser (tramite estensione o GTM preview) e ti mostra in tempo reale, in una timeline verticale millisecondo per millisecondo, tutti gli eventi e i parametri che il tuo dispositivo sta inviando a GA4, senza inquinare i dati del traffico pubblico.</p>
+        <div class="lab-box">
+            <h4>DEMO WALKTHROUGH</h4>
+            <p>Admin > Visualizzazione dati > <strong>DebugView</strong>. La visuale a timeline è lo standard per i Technical Analyst che sviluppano il tracciamento del sito in dev/staging.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Debug</span>
+    <h2 class="slide-title">68. Limiti Strutturali e Quote</h2>
+    <div class="content-area">
+        <p>Come analista IT/Aziendale, devi tenere a mente i <strong>Limiti Strutturali standard</strong> (quote) di un account gratuito Google Analytics 4:</p>
+        <ul>
+            <li>Proprietà massime per Account: 2.000</li>
+            <li>Eventi Chiave massimi per Proprietà: 30</li>
+            <li>Dimensioni Personalizzate (Event/Item scope): 50</li>
+            <li>Dimensioni Personalizzate (User scope): 25</li>
+            <li>Data Streams massimi per Proprietà: 50</li>
+        </ul>
+        <p>Se un'azienda supera stabilmente questi limiti, è necessario fare un upgrade alle versioni aziendali a pagamento (Google Analytics 360) o utilizzare logiche di consolidamento su BigQuery.</p>
+    </div>
+</div>
+
+<div class="slide-container"><span class="tag-day">Wrap-Up</span>
+    <div class="content-area" style="text-align: center; justify-content: center;">
+        <i class="fa-solid fa-graduation-cap icon-large" style="font-size: 80px; color: var(--sienna-muted);"></i>
+        <h1 style="color: var(--sienna-muted);">Congratulazioni!</h1>
+        <p style="font-size: 24px; font-weight: bold; margin-top: 20px;">Hai completato il corso approfondito in 70 Slides su GA4.</p>
+        <p style="margin-top: 20px;">Dall'attivazione dell'account demo all'esportazione dei dati grezzi su Google BigQuery, hai toccato tutti gli argomenti nevralgici, operativi e architetturali richiesti ai Data Analyst digitali oggi.</p>
+        <div class="lab-box" style="display: inline-block; padding: 20px 40px; margin-top: 30px;">
+            <p style="font-size: 18px; color: var(--blue-muted);">Siete pronti per orchestrare architetture Data-Driven Enterprise.</p>
+        </div>
+    </div>
+</div>
+
+<div class="nav-bar">
+    <button class="btn-nav" id="prevBtn" onclick="moveSlide(-1)">Indietro</button>
+    <div style="font-weight: 700; font-size: 18px; color: var(--text-dark); min-width: 90px; text-align: center;" id="counter">1 / 70</div>
+    <button class="btn-nav" id="nextBtn" onclick="moveSlide(1)">Avanti</button>
+</div>
+
+<script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide-container');
+    const totalSlides = slides.length; // Will be 70
+    
+    function updateUI() {
+        slides.forEach((slide, index) => {
+            if (index === currentSlide) {
+                slide.classList.add('active');
+            } else {
+                slide.classList.remove('active');
+            }
+        });
+        
+        document.getElementById('counter').innerText = `${currentSlide + 1} / ${totalSlides}`;
+        document.getElementById('progress').style.width = `${((currentSlide + 1) / totalSlides) * 100}%`;
+        
+        document.getElementById('prevBtn').disabled = currentSlide === 0;
+        document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+    }
+    
+    function moveSlide(direction) {
+        if (currentSlide + direction >= 0 && currentSlide + direction < totalSlides) {
+            currentSlide += direction;
+            updateUI();
+        }
+    }
+    
+    // Supporto per navigazione tramite frecce della tastiera
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') moveSlide(1);
+        if (e.key === 'ArrowLeft') moveSlide(-1);
+    });
+    
+    // Inizializza interfaccia
+    updateUI();
+</script>
+
+</body>
+</html>
